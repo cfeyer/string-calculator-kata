@@ -7,7 +7,7 @@ class String_Calculator
 {
 	public:
 
-		void add( const std::string & str ) {}
+		int add( const std::string & str ) {return -1;}
 };
 
 #endif /*STRING_CALCULATOR_H*/
