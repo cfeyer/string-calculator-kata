@@ -9,7 +9,9 @@ TEST(DefaultConstructor, CanDefaultConstruct)
 	String_Calculator calculator;
 }
 
-TEST(Add, MethodHasSignatureIntString)
+TEST(Add, SignatureCanTakeString)
 {
-	int (String_Calculator::* the_method)(const std::string &) const = String_Calculator::add;
+	String_Calculator calculator;
+	const std::string str;
+	calculator.add( str );
 }
