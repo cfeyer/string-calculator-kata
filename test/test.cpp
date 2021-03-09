@@ -9,6 +9,12 @@ TEST(SomeTest, SomeFailingCase)
 }
 
 
+TEST(SomeTest, SomePassingCase)
+{
+	EXPECT_TRUE( true );
+}
+
+
 int main( int argc, char * argv[] )
 {
 	::testing::InitGoogleTest( &argc, argv );
