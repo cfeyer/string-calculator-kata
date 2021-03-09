@@ -15,3 +15,10 @@ TEST(Add, SignatureCanTakeString)
 	const std::string str;
 	calculator.add( str );
 }
+
+TEST(Add, SignatureCanReturnInt)
+{
+	String_Calculator calculator;
+	const std::string str;
+	int result = calculator.add( str );
+}
