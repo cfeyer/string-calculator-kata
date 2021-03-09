@@ -22,3 +22,10 @@ TEST(Add, SignatureCanReturnInt)
 	const std::string str;
 	int result = calculator.add( str );
 }
+
+TEST(Add, EmptyStringYieldsZero)
+{
+	String_Calculator calculator;
+	const std::string str( "" );
+	EXPECT_EQ( 0, calculator.add( str ) );
+}
