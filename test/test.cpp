@@ -38,3 +38,8 @@ TEST(Add, OneYieldsOne)
 {
 	EXPECT_EQ( 1, add("1") );
 }
+
+TEST(Add, ZeroYieldsZero)
+{
+	EXPECT_EQ( 0, add("0") );
+}
