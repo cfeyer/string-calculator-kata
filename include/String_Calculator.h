@@ -1,0 +1,5 @@
+#ifndef STRING_CALCULATOR_H
+#define  STRING_CALCULATOR_H
+
+#endif /*STRING_CALCULATOR_H*/
+
