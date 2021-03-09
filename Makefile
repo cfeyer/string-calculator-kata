@@ -1,4 +1,4 @@
-.PHONY: check
+.PHONY: check clean
 
 check: ./bin/test
 	./bin/test
@@ -8,3 +8,6 @@ check: ./bin/test
 
 ./bin:
 	mkdir ./bin
+
+clean:
+	rm -rf ./bin
