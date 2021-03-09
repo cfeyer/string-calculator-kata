@@ -3,8 +3,8 @@
 #include "String_Calculator.h"
 
 
-TEST(SomeTest, SomePassingCase)
+TEST(StringCalculatorDefaultConstructor, CanDefaultConstruct)
 {
-	EXPECT_TRUE( true );
+	String_Calculator calculator;
 }
 
