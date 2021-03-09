@@ -23,16 +23,18 @@ TEST(Add, SignatureCanReturnInt)
 	int result = calculator.add( str );
 }
 
-TEST(Add, EmptyStringYieldsZero)
+static int add( const std::string & str )
 {
 	String_Calculator calculator;
-	const std::string str( "" );
-	EXPECT_EQ( 0, calculator.add( str ) );
+	return calculator.add( str );
+}
+
+TEST(Add, EmptyStringYieldsZero)
+{
+	EXPECT_EQ( 0, add("") );
 }
 
 TEST(Add, OneYieldsOne)
 {
-	String_Calculator calculator;
-	const std::string str( "1" );
-	EXPECT_EQ( 1, calculator.add( str ) );
+	EXPECT_EQ( 1, add("1") );
 }
