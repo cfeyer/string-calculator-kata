@@ -43,3 +43,8 @@ TEST(Add, ZeroYieldsZero)
 {
 	EXPECT_EQ( 0, add("0") );
 }
+
+TEST(Add, OneTwoYieldsThree)
+{
+	EXPECT_EQ( 3, add("1,2") );
+}
