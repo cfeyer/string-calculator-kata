@@ -29,3 +29,10 @@ TEST(Add, EmptyStringYieldsZero)
 	const std::string str( "" );
 	EXPECT_EQ( 0, calculator.add( str ) );
 }
+
+TEST(Add, OneYieldsOne)
+{
+	String_Calculator calculator;
+	const std::string str( "1" );
+	EXPECT_EQ( 1, calculator.add( str ) );
+}
