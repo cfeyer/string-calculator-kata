@@ -1,5 +1,5 @@
 ./bin/test: ./test/test.cpp | ./bin
-	$(CXX) ./test/test.cpp -o ./bin/test
+	$(CXX) $^ -o $@
 
 ./bin:
 	mkdir ./bin
