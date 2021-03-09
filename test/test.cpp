@@ -3,7 +3,7 @@
 #include "String_Calculator.h"
 
 
-TEST(StringCalculatorDefaultConstructor, CanDefaultConstruct)
+TEST(DefaultConstructor, CanDefaultConstruct)
 {
 	String_Calculator calculator;
 }
