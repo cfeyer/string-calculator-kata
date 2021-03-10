@@ -19,13 +19,19 @@ int String_Calculator::add( const std::string & expression )
 }
 
 
+bool String_Calculator::has_delimiter_declaration( const std::string & expression ) const
+{
+	return (expression.size() >= 4) &&
+	       (expression.find("//") == 0) && 
+	       (expression.at(3) == '\n');
+}
+
+
 std::set<char> String_Calculator::get_delimiters( const std::string & expression ) const
 {
 	std::set<char> delimiters {',', '\n'};
 
-        if( (expression.size() >= 4) &&
-	    (expression.find("//") == 0) && 
-	    (expression.at(3) == '\n') )
+        if( has_delimiter_declaration(expression) )
 	{
 		char custom_delimiter = expression.at(2);
 		delimiters.insert( custom_delimiter );
@@ -37,8 +43,7 @@ std::set<char> String_Calculator::get_delimiters( const std::string & expression
 
 std::string String_Calculator::get_addends_expression( const std::string & expression ) const
 {
-	if( (expression.size() >= 4) &&
-	    (expression.find("//") == 0) )
+	if( has_delimiter_declaration(expression) )
 	{
 		return std::string( expression, 4 );
 	}
