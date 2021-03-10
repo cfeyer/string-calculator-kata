@@ -1,7 +1,7 @@
 #include "String_Calculator.h"
 
 #include <sstream>
-#include <regex>
+#include <stdexcept>
 
 int String_Calculator::add( const std::string & expression )
 {
@@ -12,7 +12,16 @@ int String_Calculator::add( const std::string & expression )
 
 	for( const auto & addend_token : addend_tokens )
 	{
-		accumulator += std::stoi( addend_token );
+		int addend = std::stoi( addend_token );
+
+		if( addend >= 0 )
+		{
+			accumulator += addend;
+		}
+		else
+		{
+			throw std::invalid_argument( "" );
+		}
 	}
 
 	return accumulator;
