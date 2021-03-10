@@ -58,3 +58,13 @@ TEST(Add, TenTwentyYieldsThirty)
 {
 	EXPECT_EQ( 30, add("10,20") );
 }
+
+TEST(Add, AddThreeNumbers)
+{
+	EXPECT_EQ( 6, add("1,2,3") );
+}
+
+TEST(Add, AddFourNumbers)
+{
+	EXPECT_EQ( 48, add("1,2,3,42") );
+}
