@@ -84,3 +84,7 @@ TEST(Add, DynamicallyDeclareSemicolonAsDelimiter)
 	EXPECT_EQ( 3, add("//;\n1;2") );
 }
 
+TEST(Add, DynamicallyDeclareDollarAsDelimiter)
+{
+	EXPECT_EQ( 3, add("//$\n1$2") );
+}
