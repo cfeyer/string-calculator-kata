@@ -10,7 +10,9 @@ int String_Calculator::add( const std::string & expression )
 
 	for( char c : expression )
 	{
-		if( (c != ',') && (c != '\n') )
+		bool is_delimiter = ((c == ',') || (c == '\n'));
+
+		if( !is_delimiter )
 		{
 			token_buffer << c;
 		}
