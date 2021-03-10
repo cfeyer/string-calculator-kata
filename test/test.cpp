@@ -49,22 +49,22 @@ TEST(Add, ZeroYieldsZero)
 	EXPECT_EQ( 0, add("0") );
 }
 
-TEST(Add, OneTwoYieldsThree)
+TEST(Add, OneCommaTwoYieldsThree)
 {
 	EXPECT_EQ( 3, add("1,2") );
 }
 
-TEST(Add, TenTwentyYieldsThirty)
+TEST(Add, TenCommaTwentyYieldsThirty)
 {
 	EXPECT_EQ( 30, add("10,20") );
 }
 
-TEST(Add, AddThreeNumbers)
+TEST(Add, AddThreeCommaDelimitedNumbers)
 {
 	EXPECT_EQ( 6, add("1,2,3") );
 }
 
-TEST(Add, AddFourNumbers)
+TEST(Add, AddFourCommaDelimitedNumbers)
 {
 	EXPECT_EQ( 48, add("1,2,3,42") );
 }
