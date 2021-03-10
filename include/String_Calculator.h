@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 
 class String_Calculator
 {
@@ -10,7 +11,7 @@ class String_Calculator
 
 		int add( const std::string & expression );
 
-		std::vector<std::string> split( const std::string & expression ) const;
+		std::vector<std::string> split( const std::string & expression, const std::set<char> & delimiters ) const;
 };
 
 #endif /*STRING_CALCULATOR_H*/

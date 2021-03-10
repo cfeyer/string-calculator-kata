@@ -6,7 +6,8 @@
 
 int String_Calculator::add( const std::string & expression )
 {
-	const auto tokens = split( expression );
+	std::set<char> delimiters = {',', '\n'};
+	const auto tokens = split( expression, delimiters );
 	int accumulator = 0;
 
 	for( const auto & token : tokens )
@@ -18,9 +19,8 @@ int String_Calculator::add( const std::string & expression )
 }
 
 
-std::vector<std::string> String_Calculator::split( const std::string & expression ) const
+std::vector<std::string> String_Calculator::split( const std::string & expression, const std::set<char> & delimiters ) const
 {
-	std::set<char> delimiters = {',', '\n'};
 	std::vector<std::string> tokens;
 	std::ostringstream token_buffer;
 
