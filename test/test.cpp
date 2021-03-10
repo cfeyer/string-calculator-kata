@@ -73,3 +73,8 @@ TEST(Add, OneNewlineTwoYieldsThree)
 {
 	EXPECT_EQ( 3, add("1\n2") );
 }
+
+TEST(Add, OneNewlineTwoCommaThreeYieldsSix)
+{
+	EXPECT_EQ( 6, add("1\n2,3") );
+}
