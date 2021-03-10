@@ -68,3 +68,8 @@ TEST(Add, AddFourCommaDelimitedNumbers)
 {
 	EXPECT_EQ( 48, add("1,2,3,42") );
 }
+
+TEST(Add, OneNewlineTwoYieldsThree)
+{
+	EXPECT_EQ( 3, add("1\n2") );
+}
