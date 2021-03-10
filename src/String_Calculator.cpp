@@ -10,7 +10,7 @@ int String_Calculator::add( const std::string & expression )
 
 	for( char c : expression )
 	{
-		if( c != ',' )
+		if( (c != ',') && (c != '\n') )
 		{
 			token_buffer << c;
 		}
