@@ -21,9 +21,9 @@ int String_Calculator::add( const std::string & expression )
 
 bool String_Calculator::has_delimiter_declaration( const std::string & expression ) const
 {
-	return (expression.size() >= 4) &&
+	return (expression.size() >= delimiter_declaration_size) &&
 	       (expression.find("//") == 0) && 
-	       (expression.at(3) == '\n');
+	       (expression.at(delimiter_declaration_size-1) == '\n');
 }
 
 
@@ -45,7 +45,7 @@ std::string String_Calculator::get_addends_expression( const std::string & expre
 {
 	if( has_delimiter_declaration(expression) )
 	{
-		return std::string( expression, 4 );
+		return std::string( expression, delimiter_declaration_size );
 	}
 	else
 	{
