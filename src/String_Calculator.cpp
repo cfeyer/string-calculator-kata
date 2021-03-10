@@ -33,7 +33,7 @@ std::set<char> String_Calculator::get_delimiters( const std::string & expression
 
         if( has_delimiter_declaration(expression) )
 	{
-		char custom_delimiter = expression.at(2);
+		char custom_delimiter = expression.at(custom_delimiter_pos);
 		delimiters.insert( custom_delimiter );
 	}
 

@@ -17,6 +17,7 @@ class String_Calculator
 		std::vector<std::string> split( const std::string & expression, const std::set<char> & delimiters ) const;
 
 		static const int delimiter_declaration_size = 4;
+		static const int custom_delimiter_pos = 2;
 };
 
 #endif /*STRING_CALCULATOR_H*/
