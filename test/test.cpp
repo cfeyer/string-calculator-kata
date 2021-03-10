@@ -78,3 +78,9 @@ TEST(Add, OneNewlineTwoCommaThreeYieldsSix)
 {
 	EXPECT_EQ( 6, add("1\n2,3") );
 }
+
+TEST(Add, DynamicallyDeclareSemicolonAsDelimiter)
+{
+	EXPECT_EQ( 3, add("//;\n1;2") );
+}
+
