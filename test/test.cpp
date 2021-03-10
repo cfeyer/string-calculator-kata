@@ -39,6 +39,11 @@ TEST(Add, OneYieldsOne)
 	EXPECT_EQ( 1, add("1") );
 }
 
+TEST(Add, TenYieldsTen)
+{
+	EXPECT_EQ( 10, add("10") );
+}
+
 TEST(Add, ZeroYieldsZero)
 {
 	EXPECT_EQ( 0, add("0") );
@@ -47,4 +52,9 @@ TEST(Add, ZeroYieldsZero)
 TEST(Add, OneTwoYieldsThree)
 {
 	EXPECT_EQ( 3, add("1,2") );
+}
+
+TEST(Add, TenTwentyYieldsThirty)
+{
+	EXPECT_EQ( 30, add("10,20") );
 }
