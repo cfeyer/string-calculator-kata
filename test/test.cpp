@@ -169,3 +169,8 @@ TEST(GetCalledCount, AddCalledTwice)
 class Mock_Add_Observer : public Add_Observer_Interface
 {
 };
+
+TEST(AddObserver, CanInstantiate)
+{
+	Mock_Add_Observer observer;
+}
