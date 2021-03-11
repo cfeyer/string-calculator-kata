@@ -195,3 +195,14 @@ TEST(AddObserver, ObserverNotCalledBeforeAddCalled)
 
 	EXPECT_EQ( 0, observer.call_count );
 }
+
+TEST(AddObserver, ObserverHasCallbackMethod)
+{
+	Mock_Add_Observer concrete_observer;
+	Add_Observer_Interface & observer_interface( concrete_observer );
+
+	std::string expression;
+	int value = 0;
+
+	observer_interface.add_occurred( expression, value );
+}
