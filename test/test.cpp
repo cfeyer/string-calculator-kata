@@ -258,3 +258,9 @@ TEST(AddObserver, ObserverCalledBackTwiceWhenAddCalledTwice)
 {
 	test_observer_call_count( 2 );
 }
+
+TEST(AddIgnoresNumbersOverOneThousand, AddThousandOneYieldsZero)
+{
+	EXPECT_EQ( 0, add("1001") );
+}
+
