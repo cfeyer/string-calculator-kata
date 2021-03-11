@@ -34,7 +34,7 @@ int String_Calculator::add( const std::string & expression )
 		accumulator += addend;
 	}
 
-	notify_add_occurred();
+	notify_add_occurred( expression );
 
 	return accumulator;
 }
@@ -147,10 +147,10 @@ void String_Calculator::throw_if_negative_addends( const std::vector<int> & adde
 }
 
 
-void String_Calculator::notify_add_occurred() const
+void String_Calculator::notify_add_occurred( const std::string & expression ) const
 {
 	if( mp_observer != nullptr )
 	{
-		mp_observer->add_occurred( "", -1 );
+		mp_observer->add_occurred( expression, -1 );
 	}
 }
