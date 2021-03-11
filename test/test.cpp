@@ -144,3 +144,10 @@ TEST(GetCalledCount, AddNotCalled)
 	String_Calculator calculator;
 	EXPECT_EQ( 0, calculator.get_called_count() );
 }
+
+TEST(GetCalledCount, AddCalledOnce)
+{
+	String_Calculator calculator;
+	calculator.add("");
+	EXPECT_EQ( 1, calculator.get_called_count() );
+}
