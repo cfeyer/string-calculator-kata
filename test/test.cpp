@@ -138,3 +138,9 @@ TEST(GetCalledCount, SignatureReturnsInt)
 	String_Calculator calculator;
 	int n = calculator.get_called_count();
 }
+
+TEST(GetCalledCount, AddNotCalled)
+{
+	String_Calculator calculator;
+	EXPECT_EQ( 0, calculator.get_called_count() );
+}
