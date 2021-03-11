@@ -132,3 +132,9 @@ TEST(GetCalledCount, SignatureTakesNoArgs)
 	String_Calculator calculator;
 	calculator.get_called_count();
 }
+
+TEST(GetCalledCount, SignatureReturnsInt)
+{
+	String_Calculator calculator;
+	int n = calculator.get_called_count();
+}
