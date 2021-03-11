@@ -8,20 +8,15 @@ int String_Calculator::add( const std::string & expression )
 	const std::set<char> delimiters( get_delimiters(expression) );
 	const std::string addends_expression( get_addends_expression(expression) );
 	const auto addend_tokens( split(addends_expression, delimiters) );
+
+	throw_if_negative_addends( addend_tokens );
+
 	int accumulator = 0;
 
 	for( const auto & addend_token : addend_tokens )
 	{
 		int addend = std::stoi( addend_token );
-
-		if( addend >= 0 )
-		{
-			accumulator += addend;
-		}
-		else
-		{
-			throw std::invalid_argument( "negatives not allowed: " + addend_token );
-		}
+		accumulator += addend;
 	}
 
 	return accumulator;
@@ -91,3 +86,25 @@ std::vector<std::string> String_Calculator::split( const std::string & expressio
 	return tokens;
 }
 
+
+void String_Calculator::throw_if_negative_addends( const std::vector<std::string> & addend_tokens ) const
+{
+	bool has_negatives = false;
+	std::ostringstream message;
+	message << "negatives not allowed:";
+
+	for( const std::string & addend_token : addend_tokens )
+	{
+		int addend = std::stoi( addend_token );
+		if( addend < 0 )
+		{
+			has_negatives = true;
+			message << " " << addend_token;
+		}
+	}
+
+	if( has_negatives )
+	{
+		throw std::invalid_argument( message.str() );
+	}
+}
