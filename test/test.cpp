@@ -264,3 +264,8 @@ TEST(AddIgnoresNumbersOverOneThousand, AddThousandOneYieldsZero)
 	EXPECT_EQ( 0, add("1001") );
 }
 
+TEST(AddIgnoresNumbersOverOneThousand, AddThousandTwoHundredTwentyTwoYieldsZero)
+{
+	EXPECT_EQ( 0, add("2222") );
+}
+
