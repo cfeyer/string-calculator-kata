@@ -175,6 +175,7 @@ class Mock_Add_Observer : public Add_Observer_Interface
 
 		void add_occurred( const std::string & expression, int value )
 		{
+			++call_count;
 		}
 
 		int call_count;
@@ -209,4 +210,14 @@ TEST(AddObserver, ObserverHasCallbackMethod)
 	int value = 0;
 
 	observer_interface.add_occurred( expression, value );
+}
+
+TEST(AddObserver, ObserverCalledBackOnceWhenAddCalledOnce)
+{
+	Mock_Add_Observer observer;
+	String_Calculator calculator( observer );
+
+	calculator.add( "" );
+
+	EXPECT_EQ( 1, observer.call_count );
 }
