@@ -24,8 +24,7 @@ int String_Calculator::add( const std::string & expression )
 {
 	++m_add_call_count;
 
-	const std::set<char> delimiters( get_delimiters(expression) );
-	const std::vector<int> addends( get_addends(expression, delimiters) );
+	const std::vector<int> addends( parse_numbers(expression) );
 
 	throw_if_negative_addends( addends );
 	const std::vector<int> filtered_addends( filter_out_large_numbers(addends) );
@@ -46,6 +45,13 @@ int String_Calculator::add( const std::string & expression )
 int String_Calculator::get_called_count() const
 {
 	return m_add_call_count;
+}
+
+
+std::vector<int> String_Calculator::parse_numbers( const std::string & expression ) const
+{
+	const std::set<char> delimiters( get_delimiters(expression) );
+	return get_addends(expression, delimiters);
 }
 
 
