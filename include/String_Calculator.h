@@ -18,6 +18,7 @@ class String_Calculator
 	public:
 
 		String_Calculator();
+		String_Calculator( Add_Observer_Interface & observer );
 
 		int add( const std::string & expression );
 		int get_called_count() const;

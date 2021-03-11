@@ -10,6 +10,11 @@ String_Calculator::String_Calculator() :
 }
 
 
+String_Calculator::String_Calculator( Add_Observer_Interface & observer ) : String_Calculator()
+{
+}
+
+
 int String_Calculator::add( const std::string & expression )
 {
 	++m_add_call_count;
