@@ -139,15 +139,24 @@ TEST(GetCalledCount, SignatureReturnsInt)
 	int n = calculator.get_called_count();
 }
 
-TEST(GetCalledCount, AddNotCalled)
+void test_get_called_count( int number_times_called )
 {
 	String_Calculator calculator;
-	EXPECT_EQ( 0, calculator.get_called_count() );
+
+	for( int i = 0; i < number_times_called; ++i )
+	{
+		calculator.add( "" );
+	}
+
+	EXPECT_EQ( number_times_called, calculator.get_called_count() );
+}
+
+TEST(GetCalledCount, AddNotCalled)
+{
+	test_get_called_count( 0 );
 }
 
 TEST(GetCalledCount, AddCalledOnce)
 {
-	String_Calculator calculator;
-	calculator.add("");
-	EXPECT_EQ( 1, calculator.get_called_count() );
+	test_get_called_count( 1 );
 }
