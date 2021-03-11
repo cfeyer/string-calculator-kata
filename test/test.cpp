@@ -269,3 +269,8 @@ TEST(AddIgnoresNumbersOverOneThousand, AddThousandTwoHundredTwentyTwoYieldsZero)
 	EXPECT_EQ( 0, add("2222") );
 }
 
+TEST(AddIgnoresNumbersOverOneThousand, AddExpressionWithLargeAndSmallNumbers)
+{
+	EXPECT_EQ( 2, add("2,1001") );
+}
+
