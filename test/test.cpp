@@ -94,28 +94,25 @@ TEST(Add, ThrowsExceptionForNegativeAddend)
 	EXPECT_ANY_THROW( add("-1") );
 }
 
-TEST(Add, ThrowsDescriptiveExceptionForNegativeAddend)
+static void test_add_expect_exception( const std::string & input, const std::string & expected_exception_message )
 {
 	try
 	{
-		add("-1");
+		add( input );
 		FAIL() << "Expected exception";
 	}
 	catch( const std::exception & e )
 	{
-		EXPECT_EQ( std::string("negatives not allowed: -1"), e.what() );
+		EXPECT_EQ( expected_exception_message, e.what() );
 	}
+}
+
+TEST(Add, ThrowsDescriptiveExceptionForNegativeAddend)
+{
+	test_add_expect_exception( "-1", "negatives not allowed: -1" );
 }
 
 TEST(Add, ThrowsDescriptiveExceptionForAnotherNegativeAddend)
 {
-	try
-	{
-		add("-42");
-		FAIL() << "Expected exception";
-	}
-	catch( const std::exception & e )
-	{
-		EXPECT_EQ( std::string("negatives not allowed: -42"), e.what() );
-	}
+	test_add_expect_exception( "-42", "negatives not allowed: -42" );
 }
