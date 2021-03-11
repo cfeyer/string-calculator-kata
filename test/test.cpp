@@ -106,3 +106,16 @@ TEST(Add, ThrowsDescriptiveExceptionForNegativeAddend)
 		EXPECT_EQ( std::string("negatives not allowed: -1"), e.what() );
 	}
 }
+
+TEST(Add, ThrowsDescriptiveExceptionForAnotherNegativeAddend)
+{
+	try
+	{
+		add("-42");
+		FAIL() << "Expected exception";
+	}
+	catch( const std::exception & e )
+	{
+		EXPECT_EQ( std::string("negatives not allowed: -42"), e.what() );
+	}
+}
