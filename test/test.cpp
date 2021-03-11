@@ -168,6 +168,12 @@ TEST(GetCalledCount, AddCalledTwice)
 
 class Mock_Add_Observer : public Add_Observer_Interface
 {
+	public:
+		Mock_Add_Observer() : call_count( 0 )
+		{
+		}
+
+		int call_count;
 };
 
 TEST(AddObserver, CanInstantiate)
@@ -180,4 +186,12 @@ TEST(AddObserver, CanPassToStringCalculatorConstructor)
 	Mock_Add_Observer concrete_observer;
 	Add_Observer_Interface & observer_interface( concrete_observer );
 	String_Calculator calculator( observer_interface );
+}
+
+TEST(AddObserver, ObserverNotCalledBeforeAddCalled)
+{
+	Mock_Add_Observer observer;
+	String_Calculator calculator( observer );
+
+	EXPECT_EQ( 0, observer.call_count );
 }
