@@ -165,3 +165,7 @@ TEST(GetCalledCount, AddCalledTwice)
 {
 	test_get_called_count( 2 );
 }
+
+class Mock_Add_Observer : public Add_Observer_Interface
+{
+};
