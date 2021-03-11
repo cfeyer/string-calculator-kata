@@ -28,15 +28,13 @@ int String_Calculator::add( const std::string & expression )
 	const std::vector<int> addends( get_addends(expression, delimiters) );
 
 	throw_if_negative_addends( addends );
+	const std::vector<int> filtered_addends( filter_out_large_numbers(addends) );
 
 	int accumulator = 0;
 
-	for( int addend : addends )
+	for( int addend : filtered_addends )
 	{
-		if( addend != 1001 )
-		{
-			accumulator += addend;
-		}
+		accumulator += addend;
 	}
 
 	notify_add_occurred( expression, accumulator );
@@ -159,3 +157,22 @@ void String_Calculator::notify_add_occurred( const std::string & expression, int
 		mp_observer->add_occurred( expression, result );
 	}
 }
+
+
+std::vector<int> String_Calculator::filter_out_large_numbers( const std::vector<int> & numbers ) const
+{
+	const int max_allowable_number = 1000;
+
+	std::vector<int> accepted_numbers;
+
+	for( int number : numbers )
+	{
+		if( number <= max_allowable_number )
+		{
+			accepted_numbers.push_back( number );
+		}
+	}
+
+	return accepted_numbers;
+}
+
