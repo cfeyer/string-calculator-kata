@@ -126,3 +126,9 @@ TEST(Add, ThrowsDescriptiveExceptionWithAllDifferentNegativeAddends)
 {
 	test_add_expect_exception( "1,-2,-4,8", "negatives not allowed: -2 -4" );
 }
+
+TEST(GetCalledCount, SignatureTakesNoArgs)
+{
+	String_Calculator calculator;
+	calculator.get_called_count();
+}
