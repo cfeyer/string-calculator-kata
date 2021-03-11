@@ -20,6 +20,7 @@ class String_Calculator
 	private:
 
 		std::vector<int> parse_numbers( const std::string & expression ) const;
+		int sum( const std::vector<int> & addends ) const;
 		bool has_delimiter_declaration( const std::string & expression ) const;
 		std::set<char> get_delimiters( const std::string & expression ) const;
 		std::string get_addends_expression( const std::string & expression ) const;

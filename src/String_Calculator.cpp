@@ -29,16 +29,11 @@ int String_Calculator::add( const std::string & expression )
 	throw_if_negative_addends( addends );
 	const std::vector<int> filtered_addends( filter_out_large_numbers(addends) );
 
-	int accumulator = 0;
+	int total = sum( filtered_addends );
 
-	for( int addend : filtered_addends )
-	{
-		accumulator += addend;
-	}
+	notify_add_occurred( expression, total );
 
-	notify_add_occurred( expression, accumulator );
-
-	return accumulator;
+	return total;
 }
 
 
@@ -52,6 +47,19 @@ std::vector<int> String_Calculator::parse_numbers( const std::string & expressio
 {
 	const std::set<char> delimiters( get_delimiters(expression) );
 	return get_addends(expression, delimiters);
+}
+
+
+int String_Calculator::sum( const std::vector<int> & addends ) const
+{
+	int accumulator = 0;
+
+	for( int addend : addends )
+	{
+		accumulator += addend;
+	}
+
+	return accumulator;
 }
 
 
