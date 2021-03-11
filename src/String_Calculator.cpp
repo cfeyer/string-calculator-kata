@@ -5,12 +5,15 @@
 
 
 String_Calculator::String_Calculator() :
-	m_add_call_count( 0 )
+	m_add_call_count( 0 ),
+	mp_observer( nullptr )
 {
 }
 
 
-String_Calculator::String_Calculator( Add_Observer_Interface & observer ) : String_Calculator()
+String_Calculator::String_Calculator( Add_Observer_Interface & observer ) :
+	m_add_call_count( 0 ),
+	mp_observer( &observer )
 {
 }
 
@@ -30,6 +33,8 @@ int String_Calculator::add( const std::string & expression )
 	{
 		accumulator += addend;
 	}
+
+	notify_add_occurred();
 
 	return accumulator;
 }
@@ -138,5 +143,14 @@ void String_Calculator::throw_if_negative_addends( const std::vector<int> & adde
 	if( has_negatives )
 	{
 		throw std::invalid_argument( message.str() );
+	}
+}
+
+
+void String_Calculator::notify_add_occurred() const
+{
+	if( mp_observer != nullptr )
+	{
+		mp_observer->add_occurred( "", -1 );
 	}
 }
