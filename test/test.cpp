@@ -199,12 +199,22 @@ TEST(AddObserver, CanPassToStringCalculatorConstructor)
 	String_Calculator calculator( observer_interface );
 }
 
-TEST(AddObserver, ObserverNotCalledBeforeAddCalled)
+void test_observer_call_count( int number_times_add_called )
 {
 	Mock_Add_Observer observer;
 	String_Calculator calculator( observer );
 
-	EXPECT_EQ( 0, observer.call_count );
+	for( int i = 0; i < number_times_add_called; ++i )
+	{
+		calculator.add( "" );
+	}
+
+	EXPECT_EQ( number_times_add_called, observer.call_count );
+}
+
+TEST(AddObserver, ObserverNotCalledBeforeAddCalled)
+{
+	test_observer_call_count( 0 );
 }
 
 TEST(AddObserver, ObserverHasCallbackMethod)
@@ -220,12 +230,7 @@ TEST(AddObserver, ObserverHasCallbackMethod)
 
 TEST(AddObserver, ObserverCalledBackOnceWhenAddCalledOnce)
 {
-	Mock_Add_Observer observer;
-	String_Calculator calculator( observer );
-
-	calculator.add( "" );
-
-	EXPECT_EQ( 1, observer.call_count );
+	test_observer_call_count( 1 );
 }
 
 TEST(AddObserver, ObserverCalledBackWithCorrectExpression)
