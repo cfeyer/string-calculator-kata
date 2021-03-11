@@ -9,8 +9,12 @@ class String_Calculator
 {
 	public:
 
+		String_Calculator();
+
 		int add( const std::string & expression );
 		int get_called_count() const;
+
+	private:
 
 		bool has_delimiter_declaration( const std::string & expression ) const;
 		std::set<char> get_delimiters( const std::string & expression ) const;
@@ -21,6 +25,8 @@ class String_Calculator
 
 		static const int delimiter_declaration_size = 4;
 		static const int custom_delimiter_pos = 2;
+
+		int m_add_call_count;
 };
 
 #endif /*STRING_CALCULATOR_H*/

@@ -3,8 +3,17 @@
 #include <sstream>
 #include <stdexcept>
 
+
+String_Calculator::String_Calculator() :
+	m_add_call_count( 0 )
+{
+}
+
+
 int String_Calculator::add( const std::string & expression )
 {
+	m_add_call_count = 1;
+
 	const std::set<char> delimiters( get_delimiters(expression) );
 	const std::vector<int> addends( get_addends(expression, delimiters) );
 
@@ -23,7 +32,7 @@ int String_Calculator::add( const std::string & expression )
 
 int String_Calculator::get_called_count() const
 {
-	return 0;
+	return m_add_call_count;
 }
 
 
