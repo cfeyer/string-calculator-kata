@@ -160,3 +160,8 @@ TEST(GetCalledCount, AddCalledOnce)
 {
 	test_get_called_count( 1 );
 }
+
+TEST(GetCalledCount, AddCalledTwice)
+{
+	test_get_called_count( 2 );
+}
