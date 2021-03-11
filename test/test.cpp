@@ -174,3 +174,10 @@ TEST(AddObserver, CanInstantiate)
 {
 	Mock_Add_Observer observer;
 }
+
+TEST(AddObserver, CanPassToStringCalculatorConstructor)
+{
+	Mock_Add_Observer concrete_observer;
+	Add_Observer_Interface & observer_interface( concrete_observer );
+	String_Calculator calculator( observer_interface );
+}
