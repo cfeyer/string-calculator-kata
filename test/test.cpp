@@ -116,3 +116,8 @@ TEST(Add, ThrowsDescriptiveExceptionForAnotherNegativeAddend)
 {
 	test_add_expect_exception( "-42", "negatives not allowed: -42" );
 }
+
+TEST(Add, ThrowsDescriptiveExceptionWithAllNegativeAddends)
+{
+	test_add_expect_exception( "-1,1,-2", "negatives not allowed: -1 -2" );
+}
