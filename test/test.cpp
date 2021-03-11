@@ -173,6 +173,10 @@ class Mock_Add_Observer : public Add_Observer_Interface
 		{
 		}
 
+		void add_occurred( const std::string & expression, int value )
+		{
+		}
+
 		int call_count;
 };
 

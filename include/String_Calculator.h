@@ -10,6 +10,8 @@ class Add_Observer_Interface
 {
 	public:
 		virtual ~Add_Observer_Interface() {}
+
+		virtual void add_occurred( const std::string & expression, int value ) = 0;
 };
 
 
