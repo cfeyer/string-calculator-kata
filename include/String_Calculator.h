@@ -5,6 +5,14 @@
 #include <vector>
 #include <set>
 
+
+class Add_Observer_Interface
+{
+	public:
+		virtual ~Add_Observer_Interface() {}
+};
+
+
 class String_Calculator
 {
 	public:
