@@ -23,7 +23,7 @@ int String_Calculator::add( const std::string & expression )
 
 int String_Calculator::get_called_count() const
 {
-	return -1;
+	return 0;
 }
 
 
