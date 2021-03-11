@@ -6,16 +6,14 @@
 int String_Calculator::add( const std::string & expression )
 {
 	const std::set<char> delimiters( get_delimiters(expression) );
-	const std::string addends_expression( get_addends_expression(expression) );
-	const auto addend_tokens( split(addends_expression, delimiters) );
+	const std::vector<int> addends( get_addends(expression, delimiters) );
 
-	throw_if_negative_addends( addend_tokens );
+	throw_if_negative_addends( addends );
 
 	int accumulator = 0;
 
-	for( const auto & addend_token : addend_tokens )
+	for( int addend : addends )
 	{
-		int addend = std::stoi( addend_token );
 		accumulator += addend;
 	}
 
@@ -87,19 +85,33 @@ std::vector<std::string> String_Calculator::split( const std::string & expressio
 }
 
 
-void String_Calculator::throw_if_negative_addends( const std::vector<std::string> & addend_tokens ) const
+std::vector<int> String_Calculator::get_addends( const std::string & expression, const std::set<char> & delimiters ) const
+{
+	const std::string addends_expression( get_addends_expression(expression) );
+	const auto addend_tokens( split(addends_expression, delimiters) );
+
+	std::vector<int> addends;
+
+	for( const std::string & token : addend_tokens )
+	{
+		addends.push_back( std::stoi(token) );
+	}
+
+	return addends;
+}
+
+void String_Calculator::throw_if_negative_addends( const std::vector<int> & addends ) const
 {
 	bool has_negatives = false;
 	std::ostringstream message;
 	message << "negatives not allowed:";
 
-	for( const std::string & addend_token : addend_tokens )
+	for( int addend : addends )
 	{
-		int addend = std::stoi( addend_token );
 		if( addend < 0 )
 		{
 			has_negatives = true;
-			message << " " << addend_token;
+			message << " " << addend;
 		}
 	}
 
