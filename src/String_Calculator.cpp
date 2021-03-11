@@ -33,7 +33,10 @@ int String_Calculator::add( const std::string & expression )
 
 	for( int addend : addends )
 	{
-		accumulator += addend;
+		if( addend != 1001 )
+		{
+			accumulator += addend;
+		}
 	}
 
 	notify_add_occurred( expression, accumulator );
