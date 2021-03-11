@@ -21,8 +21,9 @@ int String_Calculator::add( const std::string & expression )
 }
 
 
-void String_Calculator::get_called_count() const
+int String_Calculator::get_called_count() const
 {
+	return -1;
 }
 
 
