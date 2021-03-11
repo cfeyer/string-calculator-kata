@@ -21,6 +21,11 @@ int String_Calculator::add( const std::string & expression )
 }
 
 
+void String_Calculator::get_called_count() const
+{
+}
+
+
 bool String_Calculator::has_delimiter_declaration( const std::string & expression ) const
 {
 	return (expression.size() >= delimiter_declaration_size) &&

@@ -10,6 +10,7 @@ class String_Calculator
 	public:
 
 		int add( const std::string & expression );
+		void get_called_count() const;
 
 		bool has_delimiter_declaration( const std::string & expression ) const;
 		std::set<char> get_delimiters( const std::string & expression ) const;
