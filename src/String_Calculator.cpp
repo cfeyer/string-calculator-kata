@@ -12,7 +12,7 @@ String_Calculator::String_Calculator() :
 
 int String_Calculator::add( const std::string & expression )
 {
-	m_add_call_count = 1;
+	++m_add_call_count;
 
 	const std::set<char> delimiters( get_delimiters(expression) );
 	const std::vector<int> addends( get_addends(expression, delimiters) );
