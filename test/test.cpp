@@ -169,18 +169,22 @@ TEST(GetCalledCount, AddCalledTwice)
 class Mock_Add_Observer : public Add_Observer_Interface
 {
 	public:
-		Mock_Add_Observer() : call_count( 0 )
+		Mock_Add_Observer() :
+			call_count( 0 ),
+			result( -1 )
 		{
 		}
 
-		void add_occurred( const std::string & notify_expression, int notify_value )
+		void add_occurred( const std::string & notify_expression, int notify_result )
 		{
 			++call_count;
 			expression = notify_expression;
+			result = notify_result;
 		}
 
 		int call_count;
 		std::string expression;
+		int result;
 };
 
 TEST(AddObserver, CanInstantiate)
@@ -232,4 +236,14 @@ TEST(AddObserver, ObserverCalledBackWithCorrectExpression)
 	calculator.add( "1,2,3,4" );
 
 	EXPECT_EQ( "1,2,3,4", observer.expression );
+}
+
+TEST(AddObserver, ObserverCalledBackWithCorrectResult)
+{
+	Mock_Add_Observer observer;
+	String_Calculator calculator( observer );
+
+	calculator.add( "1,2,3,4" );
+
+	EXPECT_EQ( 10, observer.result );
 }
