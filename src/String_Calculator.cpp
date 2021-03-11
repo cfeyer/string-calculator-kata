@@ -20,7 +20,7 @@ int String_Calculator::add( const std::string & expression )
 		}
 		else
 		{
-			throw std::invalid_argument( "" );
+			throw std::invalid_argument( "negatives not allowed: -1" );
 		}
 	}
 
