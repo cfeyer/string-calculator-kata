@@ -252,3 +252,8 @@ TEST(AddObserver, ObserverCalledBackWithCorrectResult)
 
 	EXPECT_EQ( 10, observer.result );
 }
+
+TEST(AddObserver, ObserverCalledBackTwiceWhenAddCalledTwice)
+{
+	test_observer_call_count( 2 );
+}
