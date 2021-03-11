@@ -3,6 +3,8 @@
 #include <sstream>
 #include <stdexcept>
 
+#include "Add_Observer_Interface.h"
+
 
 String_Calculator::String_Calculator() :
 	m_add_call_count( 0 ),
