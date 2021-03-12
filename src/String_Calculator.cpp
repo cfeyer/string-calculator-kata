@@ -65,27 +65,30 @@ int String_Calculator::sum( const std::vector<int> & addends ) const
 
 std::vector<std::string> String_Calculator::split( const std::string & expression, const std::set<std::string> & delimiters ) const
 {
-	std::vector<std::string> tokens;
-	std::ostringstream token_buffer;
+	std::string buffer( expression );
 
-	for( char c : expression )
+	for( const std::string & delimiter : delimiters )
 	{
-		bool is_delimiter = (delimiters.find( ctos(c) ) != delimiters.end());
-
-		if( !is_delimiter )
+		auto pos = buffer.find( delimiter );
+		while( pos != std::string::npos )
 		{
-			token_buffer << c;
-		}
-		else
-		{
-			tokens.push_back( token_buffer.str() );
-			token_buffer.str( "" );
+			buffer.replace( pos, delimiter.size(), " " );
+			pos = buffer.find( delimiter );
 		}
 	}
 
-	if( !token_buffer.str().empty() )
+	std::vector<std::string> tokens;
+
+	std::istringstream strm( buffer );
+	while( strm )
 	{
-		tokens.push_back( token_buffer.str() );
+		std::string token;
+		strm >> token;
+
+		if( !token.empty() )
+		{
+			tokens.push_back( token );
+		}
 	}
 
 	return tokens;
@@ -158,7 +161,15 @@ std::pair<std::set<std::string>, std::string> String_Calculator::get_delimiters_
 	std::set<std::string> delimiters {",", "\n"};
 	std::string body;
 
-	if( (expression.find("//") == 0) && (expression.find("\n") == 3) )
+	if( (expression.find("//[") == 0) && (expression.find("]\n") != std::string::npos ) )
+	{
+		const auto close_tag_pos = expression.find("]\n");
+		std::string custom_delimiter( expression.substr(3, close_tag_pos - 3) );
+		delimiters.insert( custom_delimiter );
+
+		body = expression.substr( close_tag_pos + 2 );
+	}
+	else if( (expression.find("//") == 0) && (expression.find("\n") == 3) )
 	{
 		std::string custom_delimiter( ctos(expression.at(2)) );
 		delimiters.insert( custom_delimiter );
