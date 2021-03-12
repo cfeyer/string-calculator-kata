@@ -85,7 +85,7 @@ std::set<char> String_Calculator::get_delimiters( const std::string & expression
 }
 
 
-std::string String_Calculator::get_addends_substring( const std::string & expression ) const
+std::string String_Calculator::remove_delimiter_declaration( const std::string & expression ) const
 {
 	if( has_delimiter_declaration(expression) )
 	{
@@ -142,7 +142,7 @@ std::vector<int> String_Calculator::strings_to_ints( const std::vector<std::stri
 
 std::vector<int> String_Calculator::get_addends( const std::string & expression, const std::set<char> & delimiters ) const
 {
-	const std::string addends_expression( get_addends_substring(expression) );
+	const std::string addends_expression( remove_delimiter_declaration(expression) );
 	const auto addend_tokens( split(addends_expression, delimiters) );
 	return strings_to_ints( addend_tokens );
 }
