@@ -46,7 +46,7 @@ int String_Calculator::get_called_count() const
 std::vector<int> String_Calculator::parse_numbers( const std::string & expression ) const
 {
 	const std::set<char> delimiters( get_delimiters(expression) );
-	return strings_to_ints( split( remove_delimiter_declaration(expression), delimiters ) );
+	return strings_to_ints( split( remove_char_delimiter_declaration(expression), delimiters ) );
 }
 
 
@@ -85,7 +85,7 @@ std::set<char> String_Calculator::get_delimiters( const std::string & expression
 }
 
 
-std::string String_Calculator::remove_delimiter_declaration( const std::string & expression ) const
+std::string String_Calculator::remove_char_delimiter_declaration( const std::string & expression ) const
 {
 	if( has_char_delimiter_declaration(expression) )
 	{

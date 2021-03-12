@@ -23,7 +23,7 @@ class String_Calculator
 		int sum( const std::vector<int> & addends ) const;
 		bool has_char_delimiter_declaration( const std::string & expression ) const;
 		std::set<char> get_delimiters( const std::string & expression ) const;
-		std::string remove_delimiter_declaration( const std::string & expression ) const;
+		std::string remove_char_delimiter_declaration( const std::string & expression ) const;
 		std::vector<std::string> split( const std::string & expression, const std::set<char> & delimiters ) const;
 		std::vector<int> strings_to_ints( const std::vector<std::string> & strs ) const;
 		void throw_if_has_negative_number( const std::vector<int> & addends ) const;
