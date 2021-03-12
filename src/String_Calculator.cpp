@@ -46,7 +46,9 @@ int String_Calculator::get_called_count() const
 std::vector<int> String_Calculator::parse_numbers( const std::string & expression ) const
 {
 	const std::set<char> delimiters( get_delimiters(expression) );
-	return get_addends(expression, delimiters);
+	const std::string addends_expression( remove_delimiter_declaration(expression) );
+	const auto addend_tokens( split(addends_expression, delimiters) );
+	return strings_to_ints( addend_tokens );
 }
 
 
@@ -137,14 +139,6 @@ std::vector<int> String_Calculator::strings_to_ints( const std::vector<std::stri
 	}
 
 	return ints;
-}
-
-
-std::vector<int> String_Calculator::get_addends( const std::string & expression, const std::set<char> & delimiters ) const
-{
-	const std::string addends_expression( remove_delimiter_declaration(expression) );
-	const auto addend_tokens( split(addends_expression, delimiters) );
-	return strings_to_ints( addend_tokens );
 }
 
 void String_Calculator::throw_if_negative_addends( const std::vector<int> & addends ) const
