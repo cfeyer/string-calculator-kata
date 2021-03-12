@@ -63,14 +63,14 @@ int String_Calculator::sum( const std::vector<int> & addends ) const
 }
 
 
-std::vector<std::string> String_Calculator::split( const std::string & expression, const std::set<char> & delimiters ) const
+std::vector<std::string> String_Calculator::split( const std::string & expression, const std::set<std::string> & delimiters ) const
 {
 	std::vector<std::string> tokens;
 	std::ostringstream token_buffer;
 
 	for( char c : expression )
 	{
-		bool is_delimiter = (delimiters.find(c) != delimiters.end());
+		bool is_delimiter = (delimiters.find( ctos(c) ) != delimiters.end());
 
 		if( !is_delimiter )
 		{
@@ -153,14 +153,14 @@ std::vector<int> String_Calculator::filter_out_large_numbers( const std::vector<
 }
 
 
-std::pair<std::set<char>, std::string> String_Calculator::get_delimiters_and_body( const std::string & expression ) const
+std::pair<std::set<std::string>, std::string> String_Calculator::get_delimiters_and_body( const std::string & expression ) const
 {
-	std::set<char> delimiters {',', '\n'};
+	std::set<std::string> delimiters {",", "\n"};
 	std::string body;
 
 	if( (expression.find("//") == 0) && (expression.find("\n") == 3) )
 	{
-		char custom_delimiter = expression.at(2);
+		std::string custom_delimiter( ctos(expression.at(2)) );
 		delimiters.insert( custom_delimiter );
 
 		body = expression.substr(4);
@@ -173,3 +173,8 @@ std::pair<std::set<char>, std::string> String_Calculator::get_delimiters_and_bod
 	return std::make_pair( delimiters, body );
 }
 
+
+std::string String_Calculator::ctos( char c ) const
+{
+	return std::string( 1, c );
+}
