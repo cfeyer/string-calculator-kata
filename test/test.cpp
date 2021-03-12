@@ -283,3 +283,13 @@ TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiter)
 {
 	EXPECT_EQ( 6, add("//[***]\n1***2***3") );
 }
+
+TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterOfOneCharacter)
+{
+	EXPECT_EQ( 6, add("//[*]\n1*2*3") );
+}
+
+TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterUsingDifferentSymbol)
+{
+	EXPECT_EQ( 6, add("//[abc]\n1abc2abc3") );
+}
