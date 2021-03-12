@@ -110,6 +110,11 @@ TEST(Add, DynamicallyDeclareNewlineAsDelimiter)
 	EXPECT_EQ( 3, add("//\n\n1\n2") );
 }
 
+TEST(Add, DynamicallyDeclareNumberAsDelimiter)
+{
+	EXPECT_EQ( 3, add("//0\n102") );
+}
+
 TEST(Add, ThrowsExceptionForNegativeAddend)
 {
 	EXPECT_ANY_THROW( add("-1") );
