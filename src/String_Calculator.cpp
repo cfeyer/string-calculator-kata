@@ -69,12 +69,7 @@ std::vector<std::string> String_Calculator::split( const std::string & expressio
 
 	for( const std::string & delimiter : delimiters )
 	{
-		auto pos = buffer.find( delimiter );
-		while( pos != std::string::npos )
-		{
-			buffer.replace( pos, delimiter.size(), " " );
-			pos = buffer.find( delimiter );
-		}
+		buffer = replace_all( buffer, delimiter, " " );
 	}
 
 	std::vector<std::string> tokens;
@@ -189,3 +184,19 @@ std::string String_Calculator::ctos( char c ) const
 {
 	return std::string( 1, c );
 }
+
+
+std::string String_Calculator::replace_all( const std::string & in_this_str, const std::string & from_value, const std::string & to_value ) const
+{
+	std::string buffer( in_this_str );
+
+	auto pos = buffer.find( from_value );
+	while( pos != std::string::npos )
+	{
+		buffer.replace( pos, from_value.size(), to_value );
+		pos = buffer.find( from_value );
+	}
+
+	return buffer;
+}
+

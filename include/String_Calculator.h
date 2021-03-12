@@ -30,6 +30,7 @@ class String_Calculator
 		void notify_add_occurred( const std::string & expression, int result ) const;
 		std::vector<int> filter_out_large_numbers( const std::vector<int> & numbers ) const;
 		std::string ctos( char c ) const;
+		std::string replace_all( const std::string & in_this_str, const std::string & from_value, const std::string & to_value ) const;
 
 		static const int delimiter_declaration_size = 4;
 		static const int custom_delimiter_pos = 2;
