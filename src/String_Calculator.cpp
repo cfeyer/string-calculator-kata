@@ -69,21 +69,27 @@ std::vector<std::string> String_Calculator::split( const std::string & expressio
 
 	for( const std::string & delimiter : delimiters )
 	{
-		buffer = replace_all( buffer, delimiter, " " );
+		buffer = replace_all( buffer, delimiter, "," );
 	}
 
 	std::vector<std::string> tokens;
-
-	std::istringstream strm( buffer );
-	while( strm )
+	std::ostringstream token_strm;
+	for( char c : buffer )
 	{
-		std::string token;
-		strm >> token;
-
-		if( !token.empty() )
+		if( c == ',' )
 		{
-			tokens.push_back( token );
+			tokens.push_back( token_strm.str() );
+			token_strm.str( "" );
 		}
+		else
+		{
+			token_strm << c;
+		}
+	}
+
+	if( !token_strm.str().empty() )
+	{
+		tokens.push_back( token_strm.str() );
 	}
 
 	return tokens;
@@ -194,7 +200,7 @@ std::string String_Calculator::replace_all( const std::string & in_this_str, con
 	while( pos != std::string::npos )
 	{
 		buffer.replace( pos, from_value.size(), to_value );
-		pos = buffer.find( from_value );
+		pos = buffer.find( from_value, pos+1 );
 	}
 
 	return buffer;
