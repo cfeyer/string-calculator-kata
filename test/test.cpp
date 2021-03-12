@@ -318,3 +318,18 @@ TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterUsingDifferentSymbol)
 {
 	EXPECT_EQ( 6, add("//[abc]\n1abc2abc3") );
 }
+
+TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterStartingWithComma)
+{
+	EXPECT_EQ( 6, add("//[,**]\n1,**2,**3") );
+}
+
+TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterEndingWithComma)
+{
+	EXPECT_EQ( 6, add("//[**,]\n1**,2**,3") );
+}
+
+TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterWithCommaInMiddle)
+{
+	EXPECT_EQ( 6, add("//[*,*]\n1*,*2*,*3") );
+}
