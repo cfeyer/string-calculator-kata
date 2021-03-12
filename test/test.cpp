@@ -95,6 +95,21 @@ TEST(Add, DynamicallyDeclareSpaceAsDelimiter)
 	EXPECT_EQ( 3, add("// \n1 2") );
 }
 
+TEST(Add, DynamicallyDeclareSlashAsDelimiter)
+{
+	EXPECT_EQ( 3, add("///\n1/2") );
+}
+
+TEST(Add, DynamicallyDeclareCommaAsDelimiter)
+{
+	EXPECT_EQ( 3, add("//,\n1,2") );
+}
+
+TEST(Add, DynamicallyDeclareNewlineAsDelimiter)
+{
+	EXPECT_EQ( 3, add("//\n\n1\n2") );
+}
+
 TEST(Add, ThrowsExceptionForNegativeAddend)
 {
 	EXPECT_ANY_THROW( add("-1") );
