@@ -127,19 +127,24 @@ std::vector<std::string> String_Calculator::split( const std::string & expressio
 }
 
 
+std::vector<int> String_Calculator::strings_to_ints( const std::vector<std::string> & strs ) const
+{
+	std::vector<int> ints;
+
+	for( const std::string & str : strs )
+	{
+		ints.push_back( std::stoi(str) );
+	}
+
+	return ints;
+}
+
+
 std::vector<int> String_Calculator::get_addends( const std::string & expression, const std::set<char> & delimiters ) const
 {
 	const std::string addends_expression( get_addends_substring(expression) );
 	const auto addend_tokens( split(addends_expression, delimiters) );
-
-	std::vector<int> addends;
-
-	for( const std::string & token : addend_tokens )
-	{
-		addends.push_back( std::stoi(token) );
-	}
-
-	return addends;
+	return strings_to_ints( addend_tokens );
 }
 
 void String_Calculator::throw_if_negative_addends( const std::vector<int> & addends ) const

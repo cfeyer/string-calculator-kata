@@ -25,6 +25,7 @@ class String_Calculator
 		std::set<char> get_delimiters( const std::string & expression ) const;
 		std::string get_addends_substring( const std::string & expression ) const;
 		std::vector<std::string> split( const std::string & expression, const std::set<char> & delimiters ) const;
+		std::vector<int> strings_to_ints( const std::vector<std::string> & strs ) const;
 		std::vector<int> get_addends( const std::string & expression, const std::set<char> & delimiters ) const;
 		void throw_if_negative_addends( const std::vector<int> & addends ) const;
 		void notify_add_occurred( const std::string & expression, int result ) const;
