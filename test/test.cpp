@@ -333,3 +333,9 @@ TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterWithCommaInMiddle)
 {
 	EXPECT_EQ( 6, add("//[*,*]\n1*,*2*,*3") );
 }
+
+TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterStartingWithNewline)
+{
+	EXPECT_EQ( 6, add("//[\n**]\n1\n**2\n**3") );
+}
+
