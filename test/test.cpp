@@ -90,6 +90,11 @@ TEST(Add, DynamicallyDeclareDollarAsDelimiter)
 	EXPECT_EQ( 3, add("//$\n1$2") );
 }
 
+TEST(Add, DynamicallyDeclareSpaceAsDelimiter)
+{
+	EXPECT_EQ( 3, add("// \n1 2") );
+}
+
 TEST(Add, ThrowsExceptionForNegativeAddend)
 {
 	EXPECT_ANY_THROW( add("-1") );
