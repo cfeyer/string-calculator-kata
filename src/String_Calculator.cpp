@@ -170,7 +170,9 @@ std::pair<std::set<std::string>, std::string> String_Calculator::get_delimiters_
 
 		body = expression.substr( close_tag_pos + 2 );
 	}
-	else if( (expression.find("//") == 0) && (expression.find("\n") == 3) )
+	else if( (expression.find("//") == 0) &&
+	         (expression.size() >= 4) &&
+	         (expression[3] == '\n') )
 	{
 		std::string custom_delimiter( ctos(expression.at(2)) );
 		delimiters.insert( custom_delimiter );
