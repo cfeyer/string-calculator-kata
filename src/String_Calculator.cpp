@@ -26,7 +26,7 @@ int String_Calculator::add( const std::string & expression )
 
 	const std::vector<int> addends( parse_numbers(expression) );
 
-	throw_if_negative_addends( addends );
+	throw_if_negative_numbers( addends );
 	const std::vector<int> filtered_addends( filter_out_large_numbers(addends) );
 
 	int total = sum( filtered_addends );
@@ -139,18 +139,18 @@ std::vector<int> String_Calculator::strings_to_ints( const std::vector<std::stri
 	return ints;
 }
 
-void String_Calculator::throw_if_negative_addends( const std::vector<int> & addends ) const
+void String_Calculator::throw_if_negative_numbers( const std::vector<int> & numbers ) const
 {
 	bool has_negatives = false;
 	std::ostringstream message;
 	message << "negatives not allowed:";
 
-	for( int addend : addends )
+	for( int number : numbers )
 	{
-		if( addend < 0 )
+		if( number < 0 )
 		{
 			has_negatives = true;
-			message << " " << addend;
+			message << " " << number;
 		}
 	}
 
