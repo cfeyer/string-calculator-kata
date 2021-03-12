@@ -46,9 +46,7 @@ int String_Calculator::get_called_count() const
 std::vector<int> String_Calculator::parse_numbers( const std::string & expression ) const
 {
 	const std::set<char> delimiters( get_delimiters(expression) );
-	const std::string addends_expression( remove_delimiter_declaration(expression) );
-	const auto addend_tokens( split(addends_expression, delimiters) );
-	return strings_to_ints( addend_tokens );
+	return strings_to_ints( split( remove_delimiter_declaration(expression), delimiters ) );
 }
 
 
