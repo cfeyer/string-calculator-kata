@@ -45,8 +45,8 @@ int String_Calculator::get_called_count() const
 
 std::vector<int> String_Calculator::parse_numbers( const std::string & expression ) const
 {
-	const std::set<char> delimiters( get_delimiters(expression) );
-	return strings_to_ints( split( remove_char_delimiter_declaration(expression), delimiters ) );
+	const auto [delimiters, tail] = get_delimiters_and_body( expression );
+	return strings_to_ints( split( tail, delimiters ) );
 }
 
 
@@ -60,41 +60,6 @@ int String_Calculator::sum( const std::vector<int> & addends ) const
 	}
 
 	return accumulator;
-}
-
-
-bool String_Calculator::has_char_delimiter_declaration( const std::string & expression ) const
-{
-	return (expression.size() >= delimiter_declaration_size) &&
-	       (expression.find("//") == 0) && 
-	       (expression.at(delimiter_declaration_size-1) == '\n');
-}
-
-
-std::set<char> String_Calculator::get_delimiters( const std::string & expression ) const
-{
-	std::set<char> delimiters {',', '\n'};
-
-        if( has_char_delimiter_declaration(expression) )
-	{
-		char custom_delimiter = expression.at(custom_delimiter_pos);
-		delimiters.insert( custom_delimiter );
-	}
-
-	return delimiters;
-}
-
-
-std::string String_Calculator::remove_char_delimiter_declaration( const std::string & expression ) const
-{
-	if( has_char_delimiter_declaration(expression) )
-	{
-		return std::string( expression, delimiter_declaration_size );
-	}
-	else
-	{
-		return expression;
-	}
 }
 
 
@@ -185,5 +150,26 @@ std::vector<int> String_Calculator::filter_out_large_numbers( const std::vector<
 	}
 
 	return accepted_numbers;
+}
+
+
+std::pair<std::set<char>, std::string> String_Calculator::get_delimiters_and_body( const std::string & expression ) const
+{
+	std::set<char> delimiters {',', '\n'};
+	std::string body;
+
+	if( (expression.find("//") == 0) && (expression.find("\n") == 3) )
+	{
+		char custom_delimiter = expression.at(2);
+		delimiters.insert( custom_delimiter );
+
+		body = expression.substr(4);
+	}
+	else
+	{
+		body = expression;
+	}
+
+	return std::make_pair( delimiters, body );
 }
 

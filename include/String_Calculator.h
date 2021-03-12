@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <utility>
 
 class Add_Observer_Interface;
 
@@ -17,13 +18,12 @@ class String_Calculator
 		int add( const std::string & expression );
 		int get_called_count() const;
 
+		std::pair< std::set<char>, std::string > get_delimiters_and_body( const std::string & expression ) const;
+
 	private:
 
 		std::vector<int> parse_numbers( const std::string & expression ) const;
 		int sum( const std::vector<int> & addends ) const;
-		bool has_char_delimiter_declaration( const std::string & expression ) const;
-		std::set<char> get_delimiters( const std::string & expression ) const;
-		std::string remove_char_delimiter_declaration( const std::string & expression ) const;
 		std::vector<std::string> split( const std::string & expression, const std::set<char> & delimiters ) const;
 		std::vector<int> strings_to_ints( const std::vector<std::string> & strs ) const;
 		void throw_if_has_negative_number( const std::vector<int> & addends ) const;
