@@ -274,8 +274,12 @@ TEST(AddIgnoresNumbersOverOneThousand, AddExpressionWithLargeAndSmallNumbers)
 	EXPECT_EQ( 2, add("2,1001") );
 }
 
-
 TEST(AddIgnoresNumbersOverOneThousand, OneThousandIsWithinBoundary)
 {
 	EXPECT_EQ( 1000, add("1000") );
+}
+
+TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiter)
+{
+	EXPECT_EQ( 6, add("//[***]\n1***2***3") );
 }
