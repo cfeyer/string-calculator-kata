@@ -21,7 +21,7 @@ class String_Calculator
 
 		std::vector<int> parse_numbers( const std::string & expression ) const;
 		int sum( const std::vector<int> & addends ) const;
-		bool has_delimiter_declaration( const std::string & expression ) const;
+		bool has_char_delimiter_declaration( const std::string & expression ) const;
 		std::set<char> get_delimiters( const std::string & expression ) const;
 		std::string remove_delimiter_declaration( const std::string & expression ) const;
 		std::vector<std::string> split( const std::string & expression, const std::set<char> & delimiters ) const;

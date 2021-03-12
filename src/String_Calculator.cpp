@@ -63,7 +63,7 @@ int String_Calculator::sum( const std::vector<int> & addends ) const
 }
 
 
-bool String_Calculator::has_delimiter_declaration( const std::string & expression ) const
+bool String_Calculator::has_char_delimiter_declaration( const std::string & expression ) const
 {
 	return (expression.size() >= delimiter_declaration_size) &&
 	       (expression.find("//") == 0) && 
@@ -75,7 +75,7 @@ std::set<char> String_Calculator::get_delimiters( const std::string & expression
 {
 	std::set<char> delimiters {',', '\n'};
 
-        if( has_delimiter_declaration(expression) )
+        if( has_char_delimiter_declaration(expression) )
 	{
 		char custom_delimiter = expression.at(custom_delimiter_pos);
 		delimiters.insert( custom_delimiter );
@@ -87,7 +87,7 @@ std::set<char> String_Calculator::get_delimiters( const std::string & expression
 
 std::string String_Calculator::remove_delimiter_declaration( const std::string & expression ) const
 {
-	if( has_delimiter_declaration(expression) )
+	if( has_char_delimiter_declaration(expression) )
 	{
 		return std::string( expression, delimiter_declaration_size );
 	}
