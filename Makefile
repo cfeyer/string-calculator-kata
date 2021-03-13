@@ -3,7 +3,7 @@
 check: ./bin/test
 	./bin/test
 
-./bin/test: ./test/test.cpp ./include/String_Calculator.h ./src/String_Calculator.cpp ./include/Add_Observer_Interface.h ./test/Tokenizer_Tests.cpp | ./bin
+./bin/test: ./test/test.cpp ./include/String_Calculator.h ./src/String_Calculator.cpp ./include/Add_Observer_Interface.h ./test/Tokenizer_Tests.cpp ./include/Tokenizer.h | ./bin
 	$(CXX) -std=c++17 $^ -I./include -lgtest -lgtest_main -o $@
 
 ./bin:
