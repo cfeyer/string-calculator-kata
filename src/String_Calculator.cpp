@@ -166,22 +166,12 @@ std::pair<std::set<std::string>, size_t> String_Calculator::parse_delimiter_head
 	std::set<std::string> delimiters {",", "\n"};
 	size_t header_size = 0;
 
-
-	if( parse_dynamic_delimiter_header(expression, delimiters, header_size) )
-	{
-	}
-	else if( (expression.find("//") == 0) &&
-	         (expression.size() >= 4) &&
-	         (expression[3] == '\n') )
-	{
-		std::string custom_delimiter( ctos(expression.at(2)) );
-		delimiters.insert( custom_delimiter );
-
-		header_size = 4;
-	}
+	parse_dynamic_delimiter_header( expression, delimiters, header_size ) ||
+		parse_static_delimiter_header( expression, delimiters, header_size );
 
 	return std::make_pair( delimiters, header_size );
 }
+
 
 bool String_Calculator::parse_dynamic_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const
 {
@@ -192,7 +182,6 @@ bool String_Calculator::parse_dynamic_delimiter_header( const std::string & expr
 	if( (expression.find(begin_tag) == 0) &&
 	    (expression.find(end_tag) != std::string::npos) )
 	{
-
 		const auto end_tag_pos = expression.find( end_tag );
 		const size_t blob_length = end_tag_pos - begin_tag.size();
 		std::string blob( expression.substr(begin_tag.size(), blob_length) );
@@ -203,6 +192,26 @@ bool String_Calculator::parse_dynamic_delimiter_header( const std::string & expr
 		}
 
 		header_size = end_tag_pos + end_tag.size();
+
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+bool String_Calculator::parse_static_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const
+{
+	if( (expression.find("//") == 0) &&
+	    (expression.size() >= 4) &&
+	    (expression[3] == '\n') )
+	{
+		std::string custom_delimiter( ctos(expression.at(2)) );
+		delimiters.insert( custom_delimiter );
+
+		header_size = 4;
 
 		return true;
 	}

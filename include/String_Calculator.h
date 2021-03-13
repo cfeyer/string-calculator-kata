@@ -23,6 +23,7 @@ class String_Calculator
 		std::vector<int> parse_numbers( const std::string & expression ) const;
 		std::pair<std::set<std::string>, size_t> parse_delimiter_header( const std::string & expression ) const;
 		bool parse_dynamic_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const;
+		bool parse_static_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const;
 		int sum( const std::vector<int> & addends ) const;
 		std::vector<std::string> split( const std::string & expression, const std::set<std::string> & delimiters ) const;
 		std::vector<std::string> split( const std::string & expression, const std::string & delimiter ) const;
