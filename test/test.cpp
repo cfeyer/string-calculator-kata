@@ -368,3 +368,8 @@ TEST(Delimiters, RightBracketAsMulticharacterDynamicallyDeclaredDelimiter)
 {
 	EXPECT_EQ( 6, add("//[]]\n1]2]3") );
 }
+
+TEST(Delimiters, AsteriskAndPercentAsMultipleDynamicallyDeclaredDelimiters)
+{
+	EXPECT_EQ( 6, add("//[*][%]\n1*2%3") );
+}
