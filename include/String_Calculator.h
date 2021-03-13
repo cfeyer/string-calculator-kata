@@ -21,6 +21,7 @@ class String_Calculator
 	private:
 
 		std::vector<int> parse_numbers( const std::string & expression ) const;
+		std::vector<std::string> parse_tokens( const std::string & expression ) const;
 		std::pair<std::set<std::string>, size_t> parse_delimiter_header( const std::string & expression ) const;
 		bool parse_dynamic_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const;
 		bool parse_static_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const;

@@ -46,10 +46,16 @@ int String_Calculator::get_called_count() const
 
 std::vector<int> String_Calculator::parse_numbers( const std::string & expression ) const
 {
+	const std::vector<std::string> tokens( parse_tokens(expression) );
+	return strings_to_ints( tokens );
+}
+
+
+std::vector<std::string> String_Calculator::parse_tokens( const std::string & expression ) const
+{
 	const auto [delimiters, header_size] = parse_delimiter_header( expression );
 	const std::string body( expression.substr(header_size) );
-	const std::vector<std::string> tokens( split(body, delimiters) );
-	return strings_to_ints( tokens );
+	return split(body, delimiters);
 }
 
 
