@@ -383,3 +383,8 @@ TEST(Delimiters, EmptyMultipleDynamicallyDeclaredDelimiters)
 {
 	EXPECT_EQ( 6, add("//[]\n1,2,3") );
 }
+
+TEST(Delimiters, DoubleAsteriskAndDoublePercentAsDynamicallyDeclaredDelimiters)
+{
+	EXPECT_EQ( 6, add("//[**][%%]\n1**2%%3") );
+}
