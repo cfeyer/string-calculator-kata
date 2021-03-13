@@ -12,7 +12,7 @@ class Tokenizer : public Tokenizer_Interface
 {
 	public:
 
-		std::vector<std::string> parse_tokens( const std::string & expression ) const;
+		std::vector<std::string> parse_tokens( const std::string & expression ) const override;
 
 	private:
 
