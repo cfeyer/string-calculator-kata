@@ -442,3 +442,17 @@ TEST(Add, CallsTokenizerInterfaceParseTokens)
 	String_Calculator calculator( tokenizer );
 	calculator.add( "" );
 }
+
+void test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( const std::string & expression )
+{
+	Mock_Tokenizer tokenizer;
+	EXPECT_CALL( tokenizer, parse_tokens("") ); // TODO
+
+	String_Calculator calculator( tokenizer );
+	calculator.add( expression );
+}
+
+TEST(Add, CallsTokenizerInterfaceParseTokensWithEmptyExpression)
+{
+	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "" );
+}
