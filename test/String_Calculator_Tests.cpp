@@ -35,6 +35,66 @@ TEST(Add, SignatureCanReturnInt)
 	int result = calculator.add( str );
 }
 
+TEST(Add, CallsTokenizerInterfaceParseTokens)
+{
+	Mock_Tokenizer tokenizer;
+	EXPECT_CALL( tokenizer, parse_tokens(_) );
+
+	String_Calculator calculator( tokenizer );
+	calculator.add( "" );
+}
+
+static void test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( const std::string & expression )
+{
+	Mock_Tokenizer tokenizer;
+	EXPECT_CALL( tokenizer, parse_tokens(expression) )
+		.Times(1);
+
+	String_Calculator calculator( tokenizer );
+	calculator.add( expression );
+}
+
+TEST(Add, CallsTokenizerInterfaceParseTokensWithEmptyExpression)
+{
+	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "" );
+}
+
+TEST(Add, CallsTokenizerInterfaceParseTokensWithZeroExpression)
+{
+	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "0" );
+}
+
+TEST(Add, CallsTokenizerInterfaceParseTokensWithOneCommaTwoExpression)
+{
+	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "1,2" );
+}
+
+TEST(Add, CallsTokenizerInterfaceParseTokensWithStaticDelimiterDeclarationExpression)
+{
+	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "//;\n1;2" );
+}
+
+TEST(Add, CallsTokenizerInterfaceParseTokensWithDynamicDelimiterDeclarationExpression)
+{
+	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "//[***]\n1***2***3" );
+}
+
+TEST(Add, CallsTokenizerInterfaceParseTokensWithMultipleDynamicDelimiterDeclarationExpression)
+{
+	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "//[*][%]\n1*2%3" );
+}
+
+TEST(Add, CallingAddTwiceCallsTokenizerInterfaceParseTokensTwice)
+{
+	Mock_Tokenizer tokenizer;
+	EXPECT_CALL( tokenizer, parse_tokens(_) )
+		.Times(2);
+
+	String_Calculator calculator( tokenizer );
+	calculator.add( "1" );
+	calculator.add( "2" );
+}
+
 static const std::string arbitrary_str;
 
 static int add_tokens( const std::vector<std::string> & tokens )
@@ -250,62 +310,3 @@ TEST(Add, IgnoresNumbersOverOneThousand)
 	EXPECT_EQ( 1000, add_tokens({"1000"}) );
 }
 
-TEST(Add, CallsTokenizerInterfaceParseTokens)
-{
-	Mock_Tokenizer tokenizer;
-	EXPECT_CALL( tokenizer, parse_tokens(_) );
-
-	String_Calculator calculator( tokenizer );
-	calculator.add( "" );
-}
-
-static void test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( const std::string & expression )
-{
-	Mock_Tokenizer tokenizer;
-	EXPECT_CALL( tokenizer, parse_tokens(expression) )
-		.Times(1);
-
-	String_Calculator calculator( tokenizer );
-	calculator.add( expression );
-}
-
-TEST(Add, CallsTokenizerInterfaceParseTokensWithEmptyExpression)
-{
-	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "" );
-}
-
-TEST(Add, CallsTokenizerInterfaceParseTokensWithZeroExpression)
-{
-	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "0" );
-}
-
-TEST(Add, CallsTokenizerInterfaceParseTokensWithOneCommaTwoExpression)
-{
-	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "1,2" );
-}
-
-TEST(Add, CallsTokenizerInterfaceParseTokensWithStaticDelimiterDeclarationExpression)
-{
-	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "//;\n1;2" );
-}
-
-TEST(Add, CallsTokenizerInterfaceParseTokensWithDynamicDelimiterDeclarationExpression)
-{
-	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "//[***]\n1***2***3" );
-}
-
-TEST(Add, CallsTokenizerInterfaceParseTokensWithMultipleDynamicDelimiterDeclarationExpression)
-{
-	test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( "//[*][%]\n1*2%3" );
-}
-
-TEST(Add, CallingAddTwiceCallsTokenizerInterfaceParseTokensTwice)
-{
-	Mock_Tokenizer tokenizer;
-	EXPECT_CALL( tokenizer, parse_tokens(_) )
-		.Times(2);
-
-	String_Calculator calculator( tokenizer );
-	calculator.add( "1" );
-	calculator.add( "2" );
-}
