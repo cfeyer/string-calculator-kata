@@ -165,17 +165,23 @@ std::pair<std::set<std::string>, std::string> String_Calculator::get_delimiters_
 	std::set<std::string> delimiters {",", "\n"};
 	std::string body;
 
-	if( (expression.find("//[") == 0) && (expression.find("]\n") != std::string::npos ) )
+	const std::string begin_tag( "//[" );
+	const std::string delimiter_delimiter( "][" );
+	const std::string end_tag( "]\n" );
+
+	if( (expression.find(begin_tag) == 0) &&
+	    (expression.find(end_tag) != std::string::npos) )
 	{
-		const auto close_tag_pos = expression.find("]\n");
-		std::string custom_delimiter_body( expression.substr(3, close_tag_pos - 3) );
-		std::vector<std::string> custom_delimiters = split( custom_delimiter_body, "][" );
+		const auto end_tag_pos = expression.find( end_tag );
+		const size_t blob_length = end_tag_pos - begin_tag.size();
+		std::string blob( expression.substr(begin_tag.size(), blob_length) );
+		std::vector<std::string> custom_delimiters = split( blob, delimiter_delimiter);
 		for( const std::string & custom_delimiter : custom_delimiters )
 		{
 			delimiters.insert( custom_delimiter );
 		}
 
-		body = expression.substr( close_tag_pos + 2 );
+		body = expression.substr( end_tag_pos + end_tag.size() );
 	}
 	else if( (expression.find("//") == 0) &&
 	         (expression.size() >= 4) &&
