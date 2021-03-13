@@ -48,7 +48,8 @@ std::vector<int> String_Calculator::parse_numbers( const std::string & expressio
 {
 	const auto [delimiters, header_size] = parse_delimiter_header( expression );
 	const std::string body( expression.substr(header_size) );
-	return strings_to_ints( split(body, delimiters) );
+	const std::vector<std::string> tokens( split(body, delimiters) );
+	return strings_to_ints( tokens );
 }
 
 
