@@ -309,7 +309,7 @@ TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiter)
 	EXPECT_EQ( 6, add("//[***]\n1***2***3") );
 }
 
-TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterOfOneCharacter)
+TEST(Delimiters, AsteriskAsMulticharacterDynamicallyDeclaredDelimiter)
 {
 	EXPECT_EQ( 6, add("//[*]\n1*2*3") );
 }
@@ -349,3 +349,22 @@ TEST(Delimiters, MulticharacterDynamicallyDeclaredDelimiterWithNewlineInMiddle)
 	EXPECT_EQ( 6, add("//[*\n*]\n1*\n*2*\n*3") );
 }
 
+TEST(Delimiters, SlashAsMulticharacterDynamicallyDeclaredDelimiter)
+{
+	EXPECT_EQ( 6, add("//[/]\n1/2/3") );
+}
+
+TEST(Delimiters, DoubleSlashAsMulticharacterDynamicallyDeclaredDelimiter)
+{
+	EXPECT_EQ( 6, add("//[//]\n1//2//3") );
+}
+
+TEST(Delimiters, DoubleSlashLeftBracketAsMulticharacterDynamicallyDeclaredDelimiter)
+{
+	EXPECT_EQ( 6, add("//[//[]\n1//[2//[3") );
+}
+
+TEST(Delimiters, RightBracketAsMulticharacterDynamicallyDeclaredDelimiter)
+{
+	EXPECT_EQ( 6, add("//[]]\n1]2]3") );
+}
