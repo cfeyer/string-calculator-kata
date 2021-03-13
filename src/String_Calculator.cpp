@@ -166,23 +166,9 @@ std::pair<std::set<std::string>, size_t> String_Calculator::parse_delimiter_head
 	std::set<std::string> delimiters {",", "\n"};
 	size_t header_size = 0;
 
-	const std::string begin_tag( "//[" );
-	const std::string delimiter_delimiter( "][" );
-	const std::string end_tag( "]\n" );
 
-	if( (expression.find(begin_tag) == 0) &&
-	    (expression.find(end_tag) != std::string::npos) )
+	if( parse_dynamic_delimiter_header(expression, delimiters, header_size) )
 	{
-		const auto end_tag_pos = expression.find( end_tag );
-		const size_t blob_length = end_tag_pos - begin_tag.size();
-		std::string blob( expression.substr(begin_tag.size(), blob_length) );
-		std::vector<std::string> custom_delimiters = split( blob, delimiter_delimiter);
-		for( const std::string & custom_delimiter : custom_delimiters )
-		{
-			delimiters.insert( custom_delimiter );
-		}
-
-		header_size = end_tag_pos + end_tag.size();
 	}
 	else if( (expression.find("//") == 0) &&
 	         (expression.size() >= 4) &&
@@ -195,6 +181,35 @@ std::pair<std::set<std::string>, size_t> String_Calculator::parse_delimiter_head
 	}
 
 	return std::make_pair( delimiters, header_size );
+}
+
+bool String_Calculator::parse_dynamic_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const
+{
+	const std::string begin_tag( "//[" );
+	const std::string delimiter_delimiter( "][" );
+	const std::string end_tag( "]\n" );
+
+	if( (expression.find(begin_tag) == 0) &&
+	    (expression.find(end_tag) != std::string::npos) )
+	{
+
+		const auto end_tag_pos = expression.find( end_tag );
+		const size_t blob_length = end_tag_pos - begin_tag.size();
+		std::string blob( expression.substr(begin_tag.size(), blob_length) );
+		std::vector<std::string> custom_delimiters = split( blob, delimiter_delimiter);
+		for( const std::string & custom_delimiter : custom_delimiters )
+		{
+			delimiters.insert( custom_delimiter );
+		}
+
+		header_size = end_tag_pos + end_tag.size();
+
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 
