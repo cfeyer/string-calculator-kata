@@ -4,15 +4,9 @@
 #include "String_Calculator.h"
 #include "Add_Observer_Interface.h"
 #include "Tokenizer_Interface.h"
+#include "Mock_Tokenizer.h"
 
 using namespace testing;
-
-class Mock_Tokenizer : public Tokenizer_Interface
-{
-	public:
-
-		MOCK_CONST_METHOD1( parse_tokens, std::vector<std::string>(const std::string &) );
-};
 
 TEST(StringCalculator, CanConstruct)
 {
