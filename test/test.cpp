@@ -373,3 +373,13 @@ TEST(Delimiters, AsteriskAndPercentAsMultipleDynamicallyDeclaredDelimiters)
 {
 	EXPECT_EQ( 6, add("//[*][%]\n1*2%3") );
 }
+
+TEST(Delimiters, PercentAsLoneMultipleDynamicallyDeclaredDelimiters)
+{
+	EXPECT_EQ( 6, add("//[%]\n1%2%3") );
+}
+
+TEST(Delimiters, EmptyMultipleDynamicallyDeclaredDelimiters)
+{
+	EXPECT_EQ( 6, add("//[]\n1,2,3") );
+}
