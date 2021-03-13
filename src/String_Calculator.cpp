@@ -205,14 +205,20 @@ bool String_Calculator::parse_dynamic_delimiter_header( const std::string & expr
 
 bool String_Calculator::parse_static_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const
 {
-	if( (expression.find("//") == 0) &&
-	    (expression.size() >= 4) &&
-	    (expression[3] == '\n') )
+	const std::string begin_tag( "//" );
+	const std::string end_tag( "\n" );
+	const size_t blob_size = 1;
+
+	const size_t hypothetical_header_size = begin_tag.size() + blob_size + end_tag.size();
+
+	if( (expression.find(begin_tag) == 0) &&
+	    (expression.size() >= hypothetical_header_size) &&
+	    (expression[hypothetical_header_size-1] == '\n') )
 	{
-		std::string custom_delimiter( ctos(expression.at(2)) );
+		std::string custom_delimiter( ctos(expression.at(begin_tag.size())) );
 		delimiters.insert( custom_delimiter );
 
-		header_size = 4;
+		header_size = hypothetical_header_size;
 
 		return true;
 	}
