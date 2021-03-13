@@ -5,6 +5,7 @@
 #include "Add_Observer_Interface.h"
 #include "Tokenizer_Interface.h"
 #include "Mock_Tokenizer.h"
+#include "Mock_Add_Observer.h"
 
 using namespace testing;
 
@@ -195,27 +196,6 @@ TEST(GetCalledCount, AddCalledTwice)
 {
 	test_get_called_count( 2 );
 }
-
-class Mock_Add_Observer : public Add_Observer_Interface
-{
-	public:
-		Mock_Add_Observer() :
-			call_count( 0 ),
-			result( -1 )
-		{
-		}
-
-		void add_occurred( const std::string & notify_expression, int notify_result ) override
-		{
-			++call_count;
-			expression = notify_expression;
-			result = notify_result;
-		}
-
-		int call_count;
-		std::string expression;
-		int result;
-};
 
 TEST(AddObserver, CanInstantiate)
 {

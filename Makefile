@@ -3,7 +3,7 @@
 PRODUCT_H_FILES=./include/String_Calculator.h ./include/Add_Observer_Interface.h ./include/Tokenizer.h ./include/Tokenizer_Interface.h
 PRODUCT_CPP_FILES=./src/String_Calculator.cpp ./src/Tokenizer.cpp
 TEST_CPP_FILES=./test/String_Calculator_Tests.cpp ./test/Tokenizer_Tests.cpp ./test/Acceptance_Tests.cpp
-TEST_H_FILES=./test/Mock_Tokenizer.h
+TEST_H_FILES=./test/Mock_Tokenizer.h ./test/Mock_Add_Observer.h
 
 check: ./bin/test
 	./bin/test
