@@ -201,7 +201,7 @@ class Mock_Add_Observer : public Add_Observer_Interface
 		{
 		}
 
-		void add_occurred( const std::string & notify_expression, int notify_result )
+		void add_occurred( const std::string & notify_expression, int notify_result ) override
 		{
 			++call_count;
 			expression = notify_expression;
