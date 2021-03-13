@@ -15,3 +15,12 @@ TEST(TokenizerImplementsTokenizerInterface, CanCastToTokenizerInterface)
 	Tokenizer * p_tokenizer = nullptr;
 	Tokenizer_Interface * p_interface = p_tokenizer;
 }
+
+
+TEST(TokenizerInteface, HasParseTokensMethodThatTakesStringArg)
+{
+	Tokenizer concrete_tokenizer;
+	Tokenizer_Interface & tokenizer( concrete_tokenizer );
+
+	tokenizer.parse_tokens( std::string() );
+}
