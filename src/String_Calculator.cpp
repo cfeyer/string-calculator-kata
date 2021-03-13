@@ -91,8 +91,13 @@ std::vector<std::string> String_Calculator::split( const std::string & expressio
 	{
 		delimiter_pos = expression.find( delimiter, start_pos );
 		size_t length = (delimiter_pos == std::string::npos) ? std::string::npos : (delimiter_pos - start_pos);
-		const std::string token( expression.substr(start_pos, length) );
-		tokens.push_back( token );
+
+		if( length > 0 )
+		{
+			const std::string token( expression.substr(start_pos, length) );
+			tokens.push_back( token );
+		}
+
 		start_pos = delimiter_pos + delimiter_size;
 	}
 	while( (delimiter_pos != std::string::npos) && (start_pos < expression.size()) );
