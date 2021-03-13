@@ -4,31 +4,42 @@
 #include "String_Calculator.h"
 #include "Add_Observer_Interface.h"
 #include "Tokenizer_Interface.h"
+#include "Tokenizer.h"
 
 using namespace testing;
 
-TEST(DefaultConstructor, CanDefaultConstruct)
+class Mock_Tokenizer : public Tokenizer_Interface
 {
-	String_Calculator calculator;
+	public:
+
+		MOCK_CONST_METHOD1( parse_tokens, std::vector<std::string>(const std::string &) );
+};
+
+TEST(StringCalculator, CanConstruct)
+{
+	String_Calculator calculator( Mock_Tokenizer() );
 }
 
 TEST(Add, SignatureCanTakeString)
 {
-	String_Calculator calculator;
+	Mock_Tokenizer tokenizer;
+	String_Calculator calculator( tokenizer );
 	const std::string str;
 	calculator.add( str );
 }
 
 TEST(Add, SignatureCanReturnInt)
 {
-	String_Calculator calculator;
+	Mock_Tokenizer tokenizer;
+	String_Calculator calculator( tokenizer );
 	const std::string str;
 	int result = calculator.add( str );
 }
 
 static int add( const std::string & str )
 {
-	String_Calculator calculator;
+	Tokenizer tokenizer;
+	String_Calculator calculator( tokenizer );
 	return calculator.add( str );
 }
 
@@ -157,19 +168,22 @@ TEST(Add, ThrowsDescriptiveExceptionWithAllDifferentNegativeAddends)
 
 TEST(GetCalledCount, SignatureTakesNoArgs)
 {
-	String_Calculator calculator;
+	Mock_Tokenizer tokenizer;
+	String_Calculator calculator( tokenizer );
 	calculator.get_called_count();
 }
 
 TEST(GetCalledCount, SignatureReturnsInt)
 {
-	String_Calculator calculator;
+	Mock_Tokenizer tokenizer;
+	String_Calculator calculator( tokenizer );
 	int n = calculator.get_called_count();
 }
 
 void test_get_called_count( int number_times_called )
 {
-	String_Calculator calculator;
+	Mock_Tokenizer tokenizer;
+	String_Calculator calculator( tokenizer );
 
 	for( int i = 0; i < number_times_called; ++i )
 	{
@@ -222,15 +236,17 @@ TEST(AddObserver, CanInstantiate)
 
 TEST(AddObserver, CanPassToStringCalculatorConstructor)
 {
+	Mock_Tokenizer tokenizer;
 	Mock_Add_Observer concrete_observer;
 	Add_Observer_Interface & observer_interface( concrete_observer );
-	String_Calculator calculator( observer_interface );
+	String_Calculator calculator( tokenizer, observer_interface );
 }
 
 void test_observer_call_count( int number_times_add_called )
 {
+	Mock_Tokenizer tokenizer;
 	Mock_Add_Observer observer;
-	String_Calculator calculator( observer );
+	String_Calculator calculator( tokenizer, observer );
 
 	for( int i = 0; i < number_times_add_called; ++i )
 	{
@@ -263,8 +279,9 @@ TEST(AddObserver, ObserverCalledBackOnceWhenAddCalledOnce)
 
 TEST(AddObserver, ObserverCalledBackWithCorrectExpression)
 {
+	Tokenizer tokenizer;
 	Mock_Add_Observer observer;
-	String_Calculator calculator( observer );
+	String_Calculator calculator( tokenizer, observer );
 
 	calculator.add( "1,2,3,4" );
 
@@ -273,8 +290,9 @@ TEST(AddObserver, ObserverCalledBackWithCorrectExpression)
 
 TEST(AddObserver, ObserverCalledBackWithCorrectResult)
 {
+	Tokenizer tokenizer;
 	Mock_Add_Observer observer;
-	String_Calculator calculator( observer );
+	String_Calculator calculator( tokenizer, observer );
 
 	calculator.add( "1,2,3,4" );
 
@@ -416,18 +434,11 @@ TEST(Delimiters, AZCommaAsMultipleDynamicallyDeclaredDelimiters)
 	EXPECT_EQ( 6, add("//[AZ,]\n1AZ,2AZ,3") );
 }
 
-class Mock_Tokenizer : public Tokenizer_Interface
-{
-	public:
-
-		MOCK_CONST_METHOD1( parse_tokens, std::vector<std::string>(const std::string &) );
-};
-
 TEST(Add, CallsTokenizerInterfaceParseTokens)
 {
 	Mock_Tokenizer tokenizer;
 	EXPECT_CALL( tokenizer, parse_tokens(_) );
 
-	String_Calculator calculator;
+	String_Calculator calculator( tokenizer );
 	calculator.add( "" );
 }

@@ -4,16 +4,15 @@
 #include <string>
 #include <vector>
 
-#include "Tokenizer.h"
-
 class Add_Observer_Interface;
+class Tokenizer_Interface;
 
 class String_Calculator
 {
 	public:
 
-		String_Calculator();
-		String_Calculator( Add_Observer_Interface & observer );
+		String_Calculator( Tokenizer_Interface & tokenizer );
+		String_Calculator( Tokenizer_Interface & tokenizer,  Add_Observer_Interface & observer );
 
 		int add( const std::string & expression );
 		int get_called_count() const;
@@ -28,8 +27,8 @@ class String_Calculator
 		std::vector<int> filter_out_large_numbers( const std::vector<int> & numbers ) const;
 
 		int m_add_call_count;
+		Tokenizer_Interface & m_tokenizer;
 		Add_Observer_Interface * const mp_observer;
-		Tokenizer m_tokenizer;
 };
 
 #endif /*STRING_CALCULATOR_H*/

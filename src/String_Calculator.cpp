@@ -4,17 +4,20 @@
 #include <sstream>
 
 #include "Add_Observer_Interface.h"
+#include "Tokenizer_Interface.h"
 
 
-String_Calculator::String_Calculator() :
+String_Calculator::String_Calculator( Tokenizer_Interface & tokenizer ) :
 	m_add_call_count( 0 ),
+	m_tokenizer( tokenizer ),
 	mp_observer( nullptr )
 {
 }
 
 
-String_Calculator::String_Calculator( Add_Observer_Interface & observer ) :
+String_Calculator::String_Calculator( Tokenizer_Interface & tokenizer, Add_Observer_Interface & observer ) :
 	m_add_call_count( 0 ),
+	m_tokenizer( tokenizer ),
 	mp_observer( &observer )
 {
 }
