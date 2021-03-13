@@ -1,5 +1,5 @@
 #include <string>
-#include "gtest/gtest.h"
+#include "gmock/gmock.h"
 
 #include "String_Calculator.h"
 #include "Add_Observer_Interface.h"
