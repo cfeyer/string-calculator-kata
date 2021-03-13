@@ -180,7 +180,7 @@ TEST(GetCalledCount, SignatureReturnsInt)
 	int n = calculator.get_called_count();
 }
 
-void test_get_called_count( int number_times_called )
+static void test_get_called_count( int number_times_called )
 {
 	Mock_Tokenizer tokenizer;
 	String_Calculator calculator( tokenizer );
@@ -242,7 +242,7 @@ TEST(AddObserver, CanPassToStringCalculatorConstructor)
 	String_Calculator calculator( tokenizer, observer_interface );
 }
 
-void test_observer_call_count( int number_times_add_called )
+static void test_observer_call_count( int number_times_add_called )
 {
 	Mock_Tokenizer tokenizer;
 	Mock_Add_Observer observer;
@@ -443,7 +443,7 @@ TEST(Add, CallsTokenizerInterfaceParseTokens)
 	calculator.add( "" );
 }
 
-void test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( const std::string & expression )
+static void test_string_calculator_add_calls_tokenizer_parse_tokens_with_expression( const std::string & expression )
 {
 	Mock_Tokenizer tokenizer;
 	EXPECT_CALL( tokenizer, parse_tokens(expression) )
