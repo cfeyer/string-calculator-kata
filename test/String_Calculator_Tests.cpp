@@ -4,7 +4,6 @@
 #include "String_Calculator.h"
 #include "Add_Observer_Interface.h"
 #include "Tokenizer_Interface.h"
-#include "Tokenizer.h"
 
 using namespace testing;
 
@@ -34,13 +33,6 @@ TEST(Add, SignatureCanReturnInt)
 	String_Calculator calculator( tokenizer );
 	const std::string str;
 	int result = calculator.add( str );
-}
-
-static int add( const std::string & str )
-{
-	Tokenizer tokenizer;
-	String_Calculator calculator( tokenizer );
-	return calculator.add( str );
 }
 
 static const std::string arbitrary_str;
