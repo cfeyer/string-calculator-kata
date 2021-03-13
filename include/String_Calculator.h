@@ -25,6 +25,7 @@ class String_Calculator
 		std::vector<int> parse_numbers( const std::string & expression ) const;
 		int sum( const std::vector<int> & addends ) const;
 		std::vector<std::string> split( const std::string & expression, const std::set<std::string> & delimiters ) const;
+		std::vector<std::string> split_on_comma( const std::string & expression ) const;
 		std::vector<int> strings_to_ints( const std::vector<std::string> & strs ) const;
 		void throw_if_has_negative_number( const std::vector<int> & addends ) const;
 		void notify_add_occurred( const std::string & expression, int result ) const;

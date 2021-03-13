@@ -66,11 +66,16 @@ int String_Calculator::sum( const std::vector<int> & addends ) const
 
 std::vector<std::string> String_Calculator::split( const std::string & expression, const std::set<std::string> & delimiters ) const
 {
-	std::string buffer( replace_all(expression, delimiters, ",") );
+	std::string simpler_expression( replace_all(expression, delimiters, ",") );
+	return split_on_comma( simpler_expression );
+}
 
+
+std::vector<std::string> String_Calculator::split_on_comma( const std::string & expression ) const
+{
 	std::vector<std::string> tokens;
 	std::ostringstream token_strm;
-	for( char c : buffer )
+	for( char c : expression )
 	{
 		if( c == ',' )
 		{
