@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "Tokenizer.h"
+
 class Add_Observer_Interface;
 
 class String_Calculator
@@ -27,6 +29,7 @@ class String_Calculator
 
 		int m_add_call_count;
 		Add_Observer_Interface * const mp_observer;
+		Tokenizer m_tokenizer;
 };
 
 #endif /*STRING_CALCULATOR_H*/

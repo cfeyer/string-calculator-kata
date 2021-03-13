@@ -4,7 +4,6 @@
 #include <sstream>
 
 #include "Add_Observer_Interface.h"
-#include "Tokenizer.h"
 
 
 String_Calculator::String_Calculator() :
@@ -46,8 +45,7 @@ int String_Calculator::get_called_count() const
 
 std::vector<int> String_Calculator::parse_numbers( const std::string & expression ) const
 {
-	Tokenizer tokenizer;
-	const std::vector<std::string> tokens( tokenizer.parse_tokens(expression) );
+	const std::vector<std::string> tokens( m_tokenizer.parse_tokens(expression) );
 	return strings_to_ints( tokens );
 }
 
