@@ -3,7 +3,9 @@
 
 #include "String_Calculator.h"
 #include "Add_Observer_Interface.h"
+#include "Tokenizer_Interface.h"
 
+using namespace testing;
 
 TEST(DefaultConstructor, CanDefaultConstruct)
 {
@@ -412,4 +414,20 @@ TEST(Delimiters, CommaAZAsMultipleDynamicallyDeclaredDelimiters)
 TEST(Delimiters, AZCommaAsMultipleDynamicallyDeclaredDelimiters)
 {
 	EXPECT_EQ( 6, add("//[AZ,]\n1AZ,2AZ,3") );
+}
+
+class Mock_Tokenizer : public Tokenizer_Interface
+{
+	public:
+
+		MOCK_CONST_METHOD1( parse_tokens, std::vector<std::string>(const std::string &) );
+};
+
+TEST(Add, CallsTokenizerInterfaceParseTokens)
+{
+	Mock_Tokenizer tokenizer;
+	EXPECT_CALL( tokenizer, parse_tokens(_) );
+
+	String_Calculator calculator;
+	calculator.add( "" );
 }

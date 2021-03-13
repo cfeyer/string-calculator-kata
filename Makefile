@@ -8,7 +8,7 @@ check: ./bin/test
 	./bin/test
 
 ./bin/test: $(PRODUCT_H_FILES) $(PRODUCT_CPP_FILES) $(TEST_CPP_FILES) | ./bin
-	$(CXX) -std=c++17 $^ -I./include -lgmock -lgtest -lgmock_main -o $@
+	$(CXX) -std=c++17 $^ -I./include -lgmock -lgtest -lgmock_main -pthread -o $@
 
 ./bin:
 	mkdir ./bin
