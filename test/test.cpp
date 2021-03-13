@@ -403,3 +403,13 @@ TEST(Delimiters, ACommaZAsMultipleDynamicallyDeclaredDelimiters)
 {
 	EXPECT_EQ( 6, add("//[A,Z]\n1A,Z2A,Z3") );
 }
+
+TEST(Delimiters, CommaAZAsMultipleDynamicallyDeclaredDelimiters)
+{
+	EXPECT_EQ( 6, add("//[,AZ]\n1,AZ2,AZ3") );
+}
+
+TEST(Delimiters, AZCommaAsMultipleDynamicallyDeclaredDelimiters)
+{
+	EXPECT_EQ( 6, add("//[AZ,]\n1AZ,2AZ,3") );
+}
