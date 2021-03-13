@@ -1,8 +1,10 @@
 #include <string>
 #include "gtest/gtest.h"
 
+#include "Tokenizer.h"
+
 TEST(TokenizerDefaultConstructor, CanDefaultConstruct)
 {
-	FAIL() << "Test not implemented." << std::endl;
+	Tokenizer tokenizer;
 }
 
