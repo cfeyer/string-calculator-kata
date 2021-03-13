@@ -394,3 +394,7 @@ TEST(Delimiters, LeftBracketRightBracketAsDynamicallyDeclaredDelimiters)
 	EXPECT_EQ( 6, add("//[[]]\n1[]2[]3") );
 }
 
+TEST(Delimiters, TwoEmptyMultipleDynamicallyDeclaredDelimiters)
+{
+	EXPECT_EQ( 6, add("//[][]\n1,2,3") );
+}
