@@ -1,7 +1,7 @@
 .PHONY: check clean
 
 PRODUCT_H_FILES=./include/String_Calculator.h ./include/Add_Observer_Interface.h ./include/Tokenizer.h
-PRODUCT_CPP_FILES=./src/String_Calculator.cpp
+PRODUCT_CPP_FILES=./src/String_Calculator.cpp ./src/Tokenizer.cpp
 TEST_CPP_FILES=./test/test.cpp ./test/Tokenizer_Tests.cpp
 
 check: ./bin/test

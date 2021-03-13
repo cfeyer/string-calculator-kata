@@ -3,8 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <set>
-#include <utility>
 
 class Add_Observer_Interface;
 
@@ -21,24 +19,11 @@ class String_Calculator
 	private:
 
 		std::vector<int> parse_numbers( const std::string & expression ) const;
-		std::vector<std::string> parse_tokens( const std::string & expression ) const;
-		std::pair<std::set<std::string>, size_t> parse_delimiter_header( const std::string & expression ) const;
-		bool parse_dynamic_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const;
-		bool parse_static_delimiter_header( const std::string & expression, std::set<std::string> & delimiters, size_t & header_size ) const;
 		int sum( const std::vector<int> & addends ) const;
-		std::vector<std::string> split( const std::string & expression, const std::set<std::string> & delimiters ) const;
-		std::vector<std::string> split( const std::string & expression, const std::string & delimiter ) const;
 		std::vector<int> strings_to_ints( const std::vector<std::string> & strs ) const;
 		void throw_if_has_negative_number( const std::vector<int> & addends ) const;
 		void notify_add_occurred( const std::string & expression, int result ) const;
 		std::vector<int> filter_out_large_numbers( const std::vector<int> & numbers ) const;
-		std::string ctos( char c ) const;
-		std::string replace_all( const std::string & in_this_str, const std::string & from_value, const std::string & to_value ) const;
-		std::string replace_all( const std::string & in_this_str, const std::set<std::string> & from_values, const std::string & to_value ) const;
-		std::vector<std::string> sort_longest_first( const std::set<std::string> & unsorted ) const;
-
-		static const int delimiter_declaration_size = 4;
-		static const int custom_delimiter_pos = 2;
 
 		int m_add_call_count;
 		Add_Observer_Interface * const mp_observer;
