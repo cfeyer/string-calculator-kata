@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <stdexcept>
+#include <algorithm>
 
 #include "Add_Observer_Interface.h"
 
@@ -65,12 +66,7 @@ int String_Calculator::sum( const std::vector<int> & addends ) const
 
 std::vector<std::string> String_Calculator::split( const std::string & expression, const std::set<std::string> & delimiters ) const
 {
-	std::string buffer( expression );
-
-	for( const std::string & delimiter : delimiters )
-	{
-		buffer = replace_all( buffer, delimiter, "," );
-	}
+	std::string buffer( replace_all(expression, delimiters, ",") );
 
 	std::vector<std::string> tokens;
 	std::ostringstream token_strm;
@@ -206,5 +202,38 @@ std::string String_Calculator::replace_all( const std::string & in_this_str, con
 	}
 
 	return buffer;
+}
+
+
+std::string String_Calculator::replace_all( const std::string & in_this_str, const std::set<std::string> & from_values, const std::string & to_value ) const
+{
+	std::vector<std::string> sorted_from_values( sort_longest_first(from_values) );
+
+	std::string buffer( in_this_str );
+
+	for( const std::string & from_value : sorted_from_values )
+	{
+		buffer = replace_all( buffer, from_value, "," );
+	}
+
+	return buffer;
+}
+
+
+std::vector<std::string> String_Calculator::sort_longest_first( const std::set<std::string> & unsorted ) const
+{
+	std::vector<std::string> sorted;
+
+	for( const std::string & str : unsorted )
+	{
+		sorted.push_back( str );
+	}
+
+	std::sort( sorted.begin(),
+	           sorted.end(),
+	           []( const std::string & a, const std::string & b ) { return a.size() > b.size(); }
+	);
+
+	return sorted;
 }
 
