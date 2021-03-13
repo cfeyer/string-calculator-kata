@@ -9,3 +9,9 @@ TEST(TokenizerDefaultConstructor, CanDefaultConstruct)
 	Tokenizer tokenizer;
 }
 
+
+TEST(TokenizerImplementsTokenizerInterface, CanCastToTokenizerInterface)
+{
+	Tokenizer * p_tokenizer = nullptr;
+	Tokenizer_Interface * p_interface = p_tokenizer;
+}

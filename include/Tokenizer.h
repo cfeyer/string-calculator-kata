@@ -6,7 +6,9 @@
 #include <set>
 #include <utility>
 
-class Tokenizer
+#include "Tokenizer_Interface.h"
+
+class Tokenizer : public Tokenizer_Interface
 {
 	public:
 
