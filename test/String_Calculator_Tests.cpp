@@ -43,101 +43,43 @@ static int add( const std::string & str )
 	return calculator.add( str );
 }
 
-TEST(Add, EmptyStringYieldsZero)
+static const std::string arbitrary_str;
+
+static int add_tokens( const std::vector<std::string> & tokens )
 {
-	EXPECT_EQ( 0, add("") );
+	Mock_Tokenizer tokenizer;
+	EXPECT_CALL( tokenizer, parse_tokens(_) )
+		.Times(1)
+		.WillOnce(Return( tokens ));
+
+	String_Calculator calculator( tokenizer );
+	return calculator.add( arbitrary_str );
 }
 
-TEST(Add, OneYieldsOne)
+TEST(Add, AddTokensReturnedByTokenizer)
 {
-	EXPECT_EQ( 1, add("1") );
+	EXPECT_EQ( 0, add_tokens({}) );
+	EXPECT_EQ( 1, add_tokens({"1"}) );
+	EXPECT_EQ( 10, add_tokens({"10"}) );
+	EXPECT_EQ( 0, add_tokens({"0"}) );
+	EXPECT_EQ( 3, add_tokens({"1", "2"}) );
+	EXPECT_EQ( 30, add_tokens({"10", "20"}) );
+	EXPECT_EQ( 6, add_tokens({"1", "2", "3"}) );
+	EXPECT_EQ( 48, add_tokens({"1", "2", "3", "42"}) );
 }
 
-TEST(Add, TenYieldsTen)
+static void test_add_expect_exception( const std::vector<std::string> & tokens, const std::string & expected_exception_message )
 {
-	EXPECT_EQ( 10, add("10") );
-}
+	Mock_Tokenizer tokenizer;
+	EXPECT_CALL( tokenizer, parse_tokens(_) )
+		.Times(1)
+		.WillOnce(Return( tokens ));
 
-TEST(Add, ZeroYieldsZero)
-{
-	EXPECT_EQ( 0, add("0") );
-}
+	String_Calculator calculator( tokenizer );
 
-TEST(Add, OneCommaTwoYieldsThree)
-{
-	EXPECT_EQ( 3, add("1,2") );
-}
-
-TEST(Add, TenCommaTwentyYieldsThirty)
-{
-	EXPECT_EQ( 30, add("10,20") );
-}
-
-TEST(Add, AddThreeCommaDelimitedNumbers)
-{
-	EXPECT_EQ( 6, add("1,2,3") );
-}
-
-TEST(Add, AddFourCommaDelimitedNumbers)
-{
-	EXPECT_EQ( 48, add("1,2,3,42") );
-}
-
-TEST(Add, OneNewlineTwoYieldsThree)
-{
-	EXPECT_EQ( 3, add("1\n2") );
-}
-
-TEST(Add, OneNewlineTwoCommaThreeYieldsSix)
-{
-	EXPECT_EQ( 6, add("1\n2,3") );
-}
-
-TEST(Add, DynamicallyDeclareSemicolonAsDelimiter)
-{
-	EXPECT_EQ( 3, add("//;\n1;2") );
-}
-
-TEST(Add, DynamicallyDeclareDollarAsDelimiter)
-{
-	EXPECT_EQ( 3, add("//$\n1$2") );
-}
-
-TEST(Add, DynamicallyDeclareSpaceAsDelimiter)
-{
-	EXPECT_EQ( 3, add("// \n1 2") );
-}
-
-TEST(Add, DynamicallyDeclareSlashAsDelimiter)
-{
-	EXPECT_EQ( 3, add("///\n1/2") );
-}
-
-TEST(Add, DynamicallyDeclareCommaAsDelimiter)
-{
-	EXPECT_EQ( 3, add("//,\n1,2") );
-}
-
-TEST(Add, DynamicallyDeclareNewlineAsDelimiter)
-{
-	EXPECT_EQ( 3, add("//\n\n1\n2") );
-}
-
-TEST(Add, DynamicallyDeclareNumberAsDelimiter)
-{
-	EXPECT_EQ( 3, add("//0\n102") );
-}
-
-TEST(Add, ThrowsExceptionForNegativeAddend)
-{
-	EXPECT_ANY_THROW( add("-1") );
-}
-
-static void test_add_expect_exception( const std::string & input, const std::string & expected_exception_message )
-{
 	try
 	{
-		add( input );
+		calculator.add( arbitrary_str );
 		FAIL() << "Expected exception";
 	}
 	catch( const std::exception & e )
@@ -148,22 +90,22 @@ static void test_add_expect_exception( const std::string & input, const std::str
 
 TEST(Add, ThrowsDescriptiveExceptionForNegativeAddend)
 {
-	test_add_expect_exception( "-1", "negatives not allowed: -1" );
+	test_add_expect_exception( {"-1"}, "negatives not allowed: -1" );
 }
 
 TEST(Add, ThrowsDescriptiveExceptionForAnotherNegativeAddend)
 {
-	test_add_expect_exception( "-42", "negatives not allowed: -42" );
+	test_add_expect_exception( {"-42"}, "negatives not allowed: -42" );
 }
 
 TEST(Add, ThrowsDescriptiveExceptionWithAllNegativeAddends)
 {
-	test_add_expect_exception( "-1,1,-2", "negatives not allowed: -1 -2" );
+	test_add_expect_exception( {"-1", "1", "-2"}, "negatives not allowed: -1 -2" );
 }
 
 TEST(Add, ThrowsDescriptiveExceptionWithAllDifferentNegativeAddends)
 {
-	test_add_expect_exception( "1,-2,-4,8", "negatives not allowed: -2 -4" );
+	test_add_expect_exception( {"1", "-2", "-4", "8"}, "negatives not allowed: -2 -4" );
 }
 
 TEST(GetCalledCount, SignatureTakesNoArgs)
@@ -279,7 +221,7 @@ TEST(AddObserver, ObserverCalledBackOnceWhenAddCalledOnce)
 
 TEST(AddObserver, ObserverCalledBackWithCorrectExpression)
 {
-	Tokenizer tokenizer;
+	Mock_Tokenizer tokenizer;
 	Mock_Add_Observer observer;
 	String_Calculator calculator( tokenizer, observer );
 
@@ -290,7 +232,11 @@ TEST(AddObserver, ObserverCalledBackWithCorrectExpression)
 
 TEST(AddObserver, ObserverCalledBackWithCorrectResult)
 {
-	Tokenizer tokenizer;
+	Mock_Tokenizer tokenizer;
+	EXPECT_CALL( tokenizer, parse_tokens(_) )
+		.Times(1)
+		.WillOnce(Return( std::vector<std::string>{"1", "2", "3", "4"} ));
+
 	Mock_Add_Observer observer;
 	String_Calculator calculator( tokenizer, observer );
 
