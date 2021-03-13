@@ -18,11 +18,10 @@ class String_Calculator
 		int add( const std::string & expression );
 		int get_called_count() const;
 
-		std::pair< std::set<std::string>, std::string > get_delimiters_and_body( const std::string & expression ) const;
-
 	private:
 
 		std::vector<int> parse_numbers( const std::string & expression ) const;
+		std::pair<std::set<std::string>, size_t> parse_delimiter_header( const std::string & expression ) const;
 		int sum( const std::vector<int> & addends ) const;
 		std::vector<std::string> split( const std::string & expression, const std::set<std::string> & delimiters ) const;
 		std::vector<std::string> split( const std::string & expression, const std::string & delimiter ) const;

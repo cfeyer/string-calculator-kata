@@ -46,8 +46,9 @@ int String_Calculator::get_called_count() const
 
 std::vector<int> String_Calculator::parse_numbers( const std::string & expression ) const
 {
-	const auto [delimiters, tail] = get_delimiters_and_body( expression );
-	return strings_to_ints( split( tail, delimiters ) );
+	const auto [delimiters, header_size] = parse_delimiter_header( expression );
+	const std::string body( expression.substr(header_size) );
+	return strings_to_ints( split(body, delimiters) );
 }
 
 
@@ -160,10 +161,10 @@ std::vector<int> String_Calculator::filter_out_large_numbers( const std::vector<
 }
 
 
-std::pair<std::set<std::string>, std::string> String_Calculator::get_delimiters_and_body( const std::string & expression ) const
+std::pair<std::set<std::string>, size_t> String_Calculator::parse_delimiter_header( const std::string & expression ) const
 {
 	std::set<std::string> delimiters {",", "\n"};
-	std::string body;
+	size_t header_size = 0;
 
 	const std::string begin_tag( "//[" );
 	const std::string delimiter_delimiter( "][" );
@@ -181,7 +182,7 @@ std::pair<std::set<std::string>, std::string> String_Calculator::get_delimiters_
 			delimiters.insert( custom_delimiter );
 		}
 
-		body = expression.substr( end_tag_pos + end_tag.size() );
+		header_size = end_tag_pos + end_tag.size();
 	}
 	else if( (expression.find("//") == 0) &&
 	         (expression.size() >= 4) &&
@@ -190,14 +191,10 @@ std::pair<std::set<std::string>, std::string> String_Calculator::get_delimiters_
 		std::string custom_delimiter( ctos(expression.at(2)) );
 		delimiters.insert( custom_delimiter );
 
-		body = expression.substr(4);
-	}
-	else
-	{
-		body = expression;
+		header_size = 4;
 	}
 
-	return std::make_pair( delimiters, body );
+	return std::make_pair( delimiters, header_size );
 }
 
 
