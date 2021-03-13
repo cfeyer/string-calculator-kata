@@ -66,32 +66,34 @@ int String_Calculator::sum( const std::vector<int> & addends ) const
 
 std::vector<std::string> String_Calculator::split( const std::string & expression, const std::set<std::string> & delimiters ) const
 {
-	std::string simpler_expression( replace_all(expression, delimiters, ",") );
-	return split_on_comma( simpler_expression );
+	std::string simpler_expression( replace_all(expression, delimiters, ",") ); //TODO Generalize: Replace commma with a delimiter element
+	return split( simpler_expression, "," );
 }
 
 
-std::vector<std::string> String_Calculator::split_on_comma( const std::string & expression ) const
+std::vector<std::string> String_Calculator::split( const std::string & expression, const std::string & delimiter ) const
 {
 	std::vector<std::string> tokens;
-	std::ostringstream token_strm;
-	for( char c : expression )
+
+	if( expression.empty() )
 	{
-		if( c == ',' )
-		{
-			tokens.push_back( token_strm.str() );
-			token_strm.str( "" );
-		}
-		else
-		{
-			token_strm << c;
-		}
+		return tokens;
 	}
 
-	if( !token_strm.str().empty() )
+	const size_t expression_size = expression.size();
+	const size_t delimiter_size = delimiter.size();
+
+	size_t start_pos = 0;
+	size_t delimiter_pos = 0;
+	do
 	{
-		tokens.push_back( token_strm.str() );
+		delimiter_pos = expression.find( delimiter, start_pos );
+		size_t length = (delimiter_pos == std::string::npos) ? std::string::npos : (delimiter_pos - start_pos);
+		const std::string token( expression.substr(start_pos, length) );
+		tokens.push_back( token );
+		start_pos = delimiter_pos + delimiter_size;
 	}
+	while( (delimiter_pos != std::string::npos) && (start_pos < expression.size()) );
 
 	return tokens;
 }
@@ -166,8 +168,12 @@ std::pair<std::set<std::string>, std::string> String_Calculator::get_delimiters_
 	if( (expression.find("//[") == 0) && (expression.find("]\n") != std::string::npos ) )
 	{
 		const auto close_tag_pos = expression.find("]\n");
-		std::string custom_delimiter( expression.substr(3, close_tag_pos - 3) );
-		delimiters.insert( custom_delimiter );
+		std::string custom_delimiter_body( expression.substr(3, close_tag_pos - 3) );
+		std::vector<std::string> custom_delimiters = split( custom_delimiter_body, "][" );
+		for( const std::string & custom_delimiter : custom_delimiters )
+		{
+			delimiters.insert( custom_delimiter );
+		}
 
 		body = expression.substr( close_tag_pos + 2 );
 	}
