@@ -398,3 +398,8 @@ TEST(Delimiters, TwoEmptyMultipleDynamicallyDeclaredDelimiters)
 {
 	EXPECT_EQ( 6, add("//[][]\n1,2,3") );
 }
+
+TEST(Delimiters, ACommaZAsMultipleDynamicallyDeclaredDelimiters)
+{
+	EXPECT_EQ( 6, add("//[A,Z]\n1A,Z2A,Z3") );
+}
