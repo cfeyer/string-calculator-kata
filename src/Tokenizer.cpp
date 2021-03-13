@@ -12,8 +12,9 @@ std::vector<std::string> Tokenizer::parse_tokens( const std::string & expression
 
 std::vector<std::string> Tokenizer::split( const std::string & expression, const std::set<std::string> & delimiters ) const
 {
-	std::string simpler_expression( replace_all(expression, delimiters, ",") ); //TODO Generalize: Replace commma with a delimiter element
-	return split( simpler_expression, "," );
+	const std::string standard_delimiter( "," );
+	std::string simpler_expression( replace_all(expression, delimiters, standard_delimiter) );
+	return split( simpler_expression, standard_delimiter );
 }
 
 
